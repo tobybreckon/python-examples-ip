@@ -22,7 +22,7 @@ import math
 #####################################################################
 
 keep_processing = True;
-camera_to_use = 1; # 0 if you have one camera, 1 or > 1 otherwise
+camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
 
 #####################################################################
 
@@ -45,7 +45,7 @@ def create_low_pass_filter(width, height, radius):
 
 
 def getOptimalDCTSize(N):
-    return (2* cv2.getOptimalDFTSize((N+1)/2))
+    return (2* cv2.getOptimalDFTSize(math.floor((N+1)/2)))
 
 
 #####################################################################
@@ -191,5 +191,3 @@ else:
     print("No video file specified or camera connected.")
 
 #####################################################################
-
-
