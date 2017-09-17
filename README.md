@@ -1,4 +1,4 @@
-# Python Image Processing Teaching Examples using OpenCV
+# Python Image Processing OpenCV Teaching Examples
 
 OpenCV Python image processing examples used for teaching within the undergraduate Computer Science programme
 at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
