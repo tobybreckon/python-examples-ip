@@ -48,7 +48,7 @@ _Fundamentals of Digital Image Processing: A Practical Approach with Examples in
 Chris J. Solomon and Toby P. Breckon, Wiley-Blackwell, 2010
 ISBN: 0470844736, DOI:10.1002/9780470689776, http://www.fundipbook.com
 
-(which also has Matlab code examples of many of the same techniques here - [https://github.com/tobybreckon/solomon-breckon-book.git]( https://github.com/tobybreckon/solomon-breckon-book.git)
+(which also has Matlab code examples of many of the same techniques here - [https://github.com/tobybreckon/solomon-breckon-book.git]( https://github.com/tobybreckon/solomon-breckon-book.git))
 
 ```
 bibtex:
