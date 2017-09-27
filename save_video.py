@@ -20,6 +20,9 @@ import sys
 keep_processing = True;
 camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
 
+video_width = 640;
+video_height = 480;
+
 #####################################################################
 
 # define video capture object
@@ -32,8 +35,8 @@ windowName = "Live Camera Input -> Video File"; # window name
 
 # define video writer (video: 640 x 480 @ 25 fps)
 
-fourcc = cv2.VideoWriter_fourcc('X','V','I','D');
-output = cv2.VideoWriter('output.avi',fourcc, 25.0, (640,480));
+fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G');
+output = cv2.VideoWriter('output.avi',fourcc, 25.0, (video_width,video_height));
 
 # if command line arguments are provided try to read video_name
 # otherwise default to capture from attached H/W camera
@@ -53,9 +56,10 @@ if ((cap.open("video.avi")) or (cap.open(camera_to_use))):
 
         # *** do any processing here ****
 
-        # write the frame to file
+        # write the frame to file (first resizing)
 
-        output.write(frame);
+        frame2 = cv2.resize(frame,(video_width, video_height), interpolation = cv2.INTER_CUBIC)
+        output.write(frame2);
 
         # display image
 
@@ -79,9 +83,11 @@ if ((cap.open("video.avi")) or (cap.open(camera_to_use))):
 
     cv2.destroyAllWindows()
 
+    # Release everything if job is finished
+    cap.release()
+    output.release()
+
 else:
     print("No video file specified or camera connected.")
 
 #####################################################################
-
-
