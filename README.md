@@ -32,6 +32,23 @@ cd python-examples-ip
 python3 ./<insert file name of one of the examples>.py [optional video file]
 ```
 
+An extremelt simple example to check if OpenCV and the other python libraries commonly needed by these examples are present/working
+on your system and which version of them is in use, is the _version.py_ example:
+
+```
+python3 ./version.py
+```
+
+which should then output something like this (but with the _"x"_ elements completed
+specific to your system install):
+
+```
+We are using OpenCV: 3.x.x
+We are using numpy: 1.x.x
+We are using matplotlib: 1.x.x
+.. and this is in Python: 3.x.x (default, xxxxx) [xxx]
+```
+
 Demo source code is provided _"as is"_ to aid learning and understanding of topics on the course and beyond.
 
 Most run with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (otherwise edit the script to provide your own image source).
