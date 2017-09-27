@@ -3,6 +3,9 @@
 # Example : generic interface example for video processing from a video file
 # specified by filename or from an attached web camera
 
+# example test videos avilable from:
+# http://camendesign.co.uk/code/video_for_everybody/test.html
+
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
 # Copyright (c) 2015 School of Engineering & Computing Science,
@@ -77,5 +80,3 @@ else:
 
 
 #####################################################################
-
-
