@@ -92,7 +92,7 @@ python3 ./save_video.py
 
 ## Result #3:
 - a window appears with live video from camera, pressing 'x' closes window and ends program (saving a video file).
--  video file saved as _output.avi_ file can be played in [http://www.vlc.org](vlc) or similar.
+-  video file saved as _output.avi_ file can be played in [vlc](http://www.vlc.org) or similar.
 - Ignore _"cannot open video messages"_ from ffpmeg/xine or similar (this is it failing to open video file as alt. to camera, not write from camera).
 
 ---
