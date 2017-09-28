@@ -19,6 +19,6 @@ import matplotlib
 print("We are using OpenCV: " + cv2.__version__);
 print("We are using numpy: " + np.__version__);
 print("We are using matplotlib: " + matplotlib.__version__);
-print (".. and this is in Python: " + sys.version)
+print(".. and this is in Python: " + sys.version)
 
 #####################################################################
