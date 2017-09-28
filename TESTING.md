@@ -49,7 +49,7 @@ python3 ./checkbuildinfo.py
 | Built as dynamic libs:             | YES | YES |
 | OpenCV modules: | contains: core flann ... imgproc ... ml ... imgcodecs ... videoio .. xfeatures2d ... ximgproc ... optflow ... stitching | <-- same as Linux|
 | QT:                          | NO | NO |
-|    GTK+ 2.x:                 |   YES | YES |
+|    GTK+ 2.x:                 |   YES | NO |
 |    ZLib:                     |   present |   present |
 |    JPEG:                     |   present |   present |
 |    WEBP:                     |   present |   present |
