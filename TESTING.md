@@ -33,7 +33,7 @@ We are using matplotlib: <???>
 
 ## Test #1a - check we have all the correct functionality:
 
-Only to be used if building OpenCV from source (any platform) or using a pre-buil version from a repository (on Linux / Mac OS).
+Only to be used if building OpenCV from source (any platform) or using a pre-built version from a 3rd party repository (on Linux / Mac OS).
 
 ```
 .. (as per test 1 for steps 1 + 2)
