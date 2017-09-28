@@ -11,10 +11,6 @@
 #####################################################################
 
 import cv2
-import numpy as np
-import sys
-import math
-import matplotlib
 
 print("You are using OpenCV: " + cv2.__version__);
 print();
