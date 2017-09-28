@@ -60,7 +60,7 @@ python3 ./checkbuildinfo.py
 |   FFMPEG:                   |   YES (all sub-elements)| NO |
 |   GStreamer:                   |   YES (all sub-elements)| NO |
 |  V4L/V4L2:                  |   present | NO |
-|    XIMEA:                   |    YES | NO |
+|    XIMEA:                   |    YuES | NO |
 |    gPhoto2:                 |   YES | NO |
 | Parallel framework:         |   pthreads | ??? |
 | Use IPP:                    | present | NO |
@@ -86,7 +86,7 @@ pressing 'x' closes window.
 
 ```
 .. (as per test 1 for steps 1 + 2)
-<<< connect a usb web-cam (any web-cam, I can provide if need be)
+<<< connect a usb web-cam (any web-cam)
 python3 ./save_video.py
 ```
 
