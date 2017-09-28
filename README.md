@@ -32,7 +32,7 @@ cd python-examples-ip
 python3 ./<insert file name of one of the examples>.py [optional video file]
 ```
 
-An extremelt simple example to check if OpenCV and the other python libraries commonly needed by these examples are present/working
+An extremely simple example to check if OpenCV and the other python libraries commonly needed by these examples are present/working
 on your system and which version of them is in use, is the _version.py_ example:
 
 ```
