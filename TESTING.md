@@ -60,7 +60,7 @@ python3 ./checkbuildinfo.py
 |   FFMPEG:                   |   YES (all sub-elements)| NO |
 |   GStreamer:                   |   YES (all sub-elements)| NO |
 |  V4L/V4L2:                  |   present | NO |
-|    XIMEA:                   |    YuES | NO |
+|    XINE:                   |    YES | NO |
 |    gPhoto2:                 |   YES | NO |
 | Parallel framework:         |   pthreads | ??? |
 | Use IPP:                    | present | NO |
