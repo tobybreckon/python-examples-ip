@@ -44,6 +44,7 @@ specific to your system install):
 
 ```
 We are using OpenCV: 3.x.x
+.. do we have the Open CV Contrib Modules: xxxx
 We are using numpy: 1.x.x
 We are using matplotlib: 1.x.x
 .. and this is in Python: 3.x.x (default, xxxxx) [xxx]
