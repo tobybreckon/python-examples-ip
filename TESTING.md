@@ -23,6 +23,7 @@ python3 ./version.py
 
 ```
 We are using OpenCV: CCC
+.. do we have the Open CV Contrib Modules: True
 We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP
