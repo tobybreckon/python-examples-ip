@@ -25,7 +25,7 @@ import numpy as np
 #####################################################################
 
 keep_processing = True;
-camera_to_use = 1; # 0 if you have one camera, 1 or > 1 otherwise
+camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
 
 selection_in_progress = False; # support interactive region selection
 
@@ -59,6 +59,14 @@ def on_mouse(event, x, y, flags, params):
 
 #####################################################################
 
+# this function is called as a call-back everytime the trackbar is moved
+# (here we just do nothing)
+
+def nothing(x):
+    pass
+
+#####################################################################
+
 # define video capture object
 
 cap = cv2.VideoCapture();
@@ -81,6 +89,17 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
     cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL);
     cv2.namedWindow(windowNameSelection, cv2.WINDOW_NORMAL);
 
+    # set sliders for HSV selection thresholds
+
+    s_lower = 60;
+    cv2.createTrackbar("s lower", windowName2, s_lower, 255, nothing);
+    s_upper = 255;
+    cv2.createTrackbar("s upper", windowName2, s_upper, 255, nothing);
+    v_lower = 32;
+    cv2.createTrackbar("v lower", windowName2, v_lower, 255, nothing);
+    v_upper = 255;
+    cv2.createTrackbar("v upper", windowName2, v_upper, 255, nothing);
+
     # set a mouse callback
 
     cv2.setMouseCallback(windowName, on_mouse, 0);
@@ -101,6 +120,13 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
         start_t = cv2.getTickCount();
 
+        # get parameters from track bars
+
+        s_lower = cv2.getTrackbarPos("s lower", windowName2);
+        s_upper = cv2.getTrackbarPos("s upper", windowName2);
+        v_lower = cv2.getTrackbarPos("v lower", windowName2);
+        v_upper = cv2.getTrackbarPos("v upper", windowName2);
+
         # select region using the mouse and display it
 
         if (len(boxes) > 1) and (boxes[0][1] < boxes[1][1]) and (boxes[0][0] < boxes[1][0]):
@@ -114,12 +140,11 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
                 hsv_crop =  cv2.cvtColor(crop, cv2.COLOR_BGR2HSV);
 
-                # select all Hue values (0-> 180) but eliminate values with very low
+                # select all Hue (0-> 180) and Sat. values but eliminate values with very low
                 # saturation or value (due to lack of useful colour information)
 
-                # ideally these threshold would be adjustable parameters
-
-                mask = cv2.inRange(hsv_crop, np.array((0., 60.,32.)), np.array((180.,255.,255.)));
+                mask = cv2.inRange(hsv_crop, np.array((0., float(s_lower),float(v_lower))), np.array((180.,float(s_upper),float(v_upper))));
+                # mask = cv2.inRange(hsv_crop, np.array((0., 60.,32.)), np.array((180.,255.,255.)));
 
                 # construct a histogram of hue and saturation values and normalize it
 
@@ -162,10 +187,19 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
             x,y,w,h = track_window;
             frame = cv2.rectangle(frame, (x,y), (x+w,y+h), (255,0,0),2);
 
-            # Draw it on image
-            #pts = cv2.boxPoints(ret)
-            #pts = np.int0(pts)
-            #frame = cv2.polylines(frame,[pts],True, 255,2);
+        else:
+
+            # before we have cropped anything show the mask we are using
+            # for the S and V components of the HSV image
+
+            img_hsv =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV);
+
+            # select all Hue values (0-> 180) but eliminate values with very low
+            # saturation or value (due to lack of useful colour information)
+
+            mask = cv2.inRange(img_hsv, np.array((0., float(s_lower),float(v_lower))), np.array((180.,float(s_upper),float(v_upper))));
+
+            cv2.imshow(windowName2,mask);
 
         # display image
 
