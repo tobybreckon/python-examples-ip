@@ -1,6 +1,6 @@
 #####################################################################
 
-# Example : cam shift object tracking processing from a video file
+# Example : mean shift object tracking processing from a video file
 # specified on the command line (e.g. python FILE.py video_file) or from an
 # attached web camera
 
@@ -121,10 +121,10 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
                 mask = cv2.inRange(hsv_crop, np.array((0., 60.,32.)), np.array((180.,255.,255.)));
 
-                # construct a histogram of hue values and normalized it
+                # construct a histogram of hue and saturation values and normalize it
 
-                crop_hist = cv2.calcHist([hsv_crop],[0],mask,[180],[0,180]);
-                # cv2.normalize(crop_hist,crop_hist,0,255,cv2.NORM_MINMAX);
+                crop_hist = cv2.calcHist([hsv_crop],[0, 1],mask,[180, 255],[0,180, 0, 255]);
+                cv2.normalize(crop_hist,crop_hist,0,255,cv2.NORM_MINMAX);
 
                 # set intial position of object
 
@@ -151,7 +151,7 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
             img_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV);
 
-            img_bproject = cv2.calcBackProject([img_hsv],[0],crop_hist,[0,180],1);
+            img_bproject = cv2.calcBackProject([img_hsv],[0,1],crop_hist,[0,180,0,255],1);
             cv2.imshow(windowName2,img_bproject);
 
             # apply meanshift to get the new location
@@ -203,5 +203,3 @@ else:
     print("No video file specified or camera connected.")
 
 #####################################################################
-
-
