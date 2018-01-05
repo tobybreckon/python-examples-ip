@@ -10,8 +10,6 @@
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
-# version 0.1
-
 #####################################################################
 
 import cv2
