@@ -1,20 +1,21 @@
 #####################################################################
 
 # Example : gamma correction /power-law transform on an image
-# from an attached web camera
+# from an attached web camera (or video file specified on command line)
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
 # Copyright (c) 2015 School of Engineering & Computing Science,
+# Copyright (c) 2018 Dept Computer Science,
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
-
-# version 0.1
 
 #####################################################################
 
 import cv2
 import math
+import sys
+import numpy as np
 
 #####################################################################
 
@@ -36,17 +37,13 @@ def nothing(x):
 # gamma - "gradient" co-efficient of gamma function
 
 def powerlaw_transform(I, gamma):
-    for i in range(0, I.shape[1]): # image width
-        for j in range(0, I.shape[0]): # image height
-            for c in range(0, I.shape[2]): # image channels
 
-                # compute power-law transform
-                # remembering not defined for pixel = 0 (!)
+    # compute power-law transform
+    # remembering not defined for pixel = 0 (!)
 
-                # handle any overflow in a quick and dirty way using min()
+    # handle any overflow in a quick and dirty way using 0-255 clipping
 
-                if (I[j,i,c] > 0):
-                    I[j,i,c] = min(255, int(math.pow(I[j,i,c], gamma)));
+    I = np.clip(np.power(I, gamma), 0, 255).astype('uint8')
 
     return I;
 
@@ -64,7 +61,8 @@ windowName2 = "Gamma Corrected (Power-Law Transform)"; # window name
 # if command line arguments are provided try to read video_name
 # otherwise default to capture from attached H/W camera
 
-if cap.open(camera_to_use):
+if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
+    or (cap.open(camera_to_use))):
 
     # create window by name (as resizable)
 
@@ -75,7 +73,7 @@ if cap.open(camera_to_use):
 
     gamma = 100; # default gamma - no change
 
-    cv2.createTrackbar("gamma, (+ 0.01)", windowName2, gamma, 500, nothing);
+    cv2.createTrackbar("gamma, (* 0.01)", windowName2, gamma, 500, nothing);
 
     while (keep_processing):
 
@@ -86,7 +84,7 @@ if cap.open(camera_to_use):
 
         # get parameters from track bars
 
-        gamma = cv2.getTrackbarPos("gamma, (+ 0.01)", windowName2) * 0.01;
+        gamma = cv2.getTrackbarPos("gamma, (* 0.01)", windowName2) * 0.01;
 
         # make a copy
 
@@ -127,5 +125,3 @@ else:
 
 
 #####################################################################
-
-
