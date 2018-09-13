@@ -41,7 +41,7 @@ output = cv2.VideoWriter('output.avi',fourcc, 25.0, (video_width,video_height));
 # if command line arguments are provided try to read video_name
 # otherwise default to capture from attached H/W camera
 
-if ((cap.open("video.avi")) or (cap.open(camera_to_use))):
+if ((cap.open("input.avi")) or (cap.open(camera_to_use))):
 
     # create window by name (as resizable)
 
