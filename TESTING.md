@@ -6,11 +6,13 @@ All tested with [OpenCV](http://www.opencv.org) 3.x and Python 3.x.
 
 _Assumes that git and wget tools are available on the command line or that similar tools are available to access git / download files._
 
-For testing on MS Windows, download example files from source URL as specified.
+(For testing on MS Windows, download and unzip example files from source URL as specified - [here](https://github.com/tobybreckon/python-examples-ip.git) - onto the user space J:/ drive).
 
 ---
 
 ## Test #1 - check versions:
+
+(for testing on MS Windows at Durham (DUDE system), open all ```.py``` scripts from J:/ in IDLE and run module from there)
 
 ```
 git clone https://github.com/tobybreckon/python-examples-ip.git
@@ -70,6 +72,8 @@ python3 ./checkbuildinfo.py
 
 ## Test #2 - check image read + window display functions:
 
+(for MS Windows download image from [here](https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg) and save as example.jpg in directory python-examples-ip-master)
+
 ```
 .. (as per test 1 for steps 1 + 2)
 wget https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg
@@ -99,6 +103,8 @@ python3 ./save_video.py
 ---
 
 ## Test #4 - test video read function:
+
+(for MS Windows download video from [here](http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4) and save as video.avi in directory python-examples-ip-master)
 
 ```
 .. (as per test 1 for steps 1 + 2)
