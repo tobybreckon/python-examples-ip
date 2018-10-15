@@ -99,6 +99,7 @@ python3 ./save_video.py
 ```
 
 ## Result #3:
+- possible error message such as "???... ???? Unable to open source 'input.avi'" - _ignore this_.
 - a window appears with live video from camera, pressing 'x' closes window and ends program (saving a video file).
 -  video file saved as _output.avi_ file can be played in [vlc](http://www.vlc.org) or similar.
 - Ignore _"cannot open video messages"_ from ffpmeg/xine or similar (this is it failing to open video file as alt. to camera, not write from camera).
