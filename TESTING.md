@@ -25,7 +25,7 @@ python3 ./version.py
 
 ```
 We are using OpenCV: CCC
-.. do we have the Open CV Contrib Modules: True
+.. do we have the OpenCV Contrib Modules: True
 .. do we have the OpenCV Non-free algorithms: True
 We are using numpy: <???>
 We are using matplotlib: <???>
