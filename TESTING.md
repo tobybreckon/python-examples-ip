@@ -26,11 +26,13 @@ python3 ./version.py
 ```
 We are using OpenCV: CCC
 .. do we have the Open CV Contrib Modules: True
+.. do we have the OpenCV Non-free algorithms: True
 We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP
 ```
-- such that CCC >= 3.3.x (or higher); PPP > 3.x; ??? = (doesn't matter)
+- such that CCC >= 3.3.x (or higher); PPP > 3.x; ??? = (doesn't matter).
+[ to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
 ---
 
@@ -51,6 +53,7 @@ python3 ./checkbuildinfo.py
 | Platform: ... Configuration:        |Release|Release|
 | Built as dynamic libs:             | YES | YES |
 | OpenCV modules: | contains: core flann ... imgproc ... ml ... imgcodecs ... videoio .. xfeatures2d ... ximgproc ... optflow ... stitching | <-- same as Linux|
+|    Non-free algorithms:  | YES | YES |
 | QT:                          | NO | NO |
 |    GTK+ 2.x:                 |   YES | NO |
 |    ZLib:                     |   present |   present |
