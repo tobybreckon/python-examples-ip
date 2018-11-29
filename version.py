@@ -13,6 +13,7 @@
 import cv2
 import numpy as np
 import sys
+import struct
 import math
 import matplotlib
 
@@ -36,6 +37,6 @@ print(".. do we have the OpenCV Contrib Modules: " + str(extraOpenCVModulesPrese
 print(".. do we have the OpenCV Non-free algorithms: " + str(nonFreeAlgorithmsPresent()));
 print("We are using numpy: " + np.__version__);
 print("We are using matplotlib: " + matplotlib.__version__);
-print(".. and this is in Python: " + sys.version)
+print(".. and this is in Python: " + sys.version + " (" + str(struct.calcsize("P") * 8) + " bit)")
 
 #####################################################################

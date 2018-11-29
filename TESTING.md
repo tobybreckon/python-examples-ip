@@ -29,7 +29,7 @@ We are using OpenCV: CCC
 .. do we have the OpenCV Non-free algorithms: True
 We are using numpy: <???>
 We are using matplotlib: <???>
-.. and this is in Python: PPP
+.. and this is in Python: PPP ??? (64 bit)
 ```
 - such that CCC >= 3.3.x (or higher); PPP > 3.x; ??? = (doesn't matter).
 
