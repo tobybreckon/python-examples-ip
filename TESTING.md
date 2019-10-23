@@ -2,11 +2,11 @@
 
 As OpenCV is a complex beast, to ensure the full installation of OpenCV is working correctly we perform the following tests.
 
-All tested with [OpenCV](http://www.opencv.org) 3.x and Python 3.x.
+All tested with [OpenCV](http://www.opencv.org) 3.x / 4.x and Python 3.x.
 
 _Assumes that git and wget tools are available on the command line or that similar tools are available to access git / download files._
 
-(For testing on MS Windows, download and unzip example files from source URL as specified - [here](https://github.com/tobybreckon/python-examples-ip.git) - onto the user space J:/ drive).
+(_On-site at Durham University_: For testing on MS Windows, download and unzip example files from source URL as specified - [here](https://github.com/tobybreckon/python-examples-ip.git) - onto the user space J:/ drive. On Linux run the associated ``opencv ... .init`` shell script before testing.).
 
 ---
 
@@ -31,7 +31,7 @@ We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
 ```
-- such that CCC >= 3.3.x (or higher); PPP > 3.x; ??? = (doesn't matter).
+- such that CCC >= 4.x.x (or higher); PPP > 3.x; ??? = (doesn't matter).
 
 [ to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
