@@ -7,10 +7,9 @@
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
 # Copyright (c) 2015 School of Engineering & Computing Science,
+# Copyright (c) 2019 Dept Computer Science,
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
-
-# version: 0.2
 
 #####################################################################
 
@@ -77,7 +76,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     if (cap.isOpened):
             ret, frame = cap.read();
-            
+
             # rescale if specified
 
             if (args.rescale != 1.0):

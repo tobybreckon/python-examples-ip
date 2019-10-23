@@ -5,12 +5,10 @@
 # attached web camera
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
-
 # Copyright (c) 2015 School of Engineering & Computing Science,
+# Copyright (c) 2019 Dept Computer Science,
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
-
-
 
 #####################################################################
 
