@@ -67,11 +67,11 @@ which should then output something like this (but with the _"x"_ elements comple
 specific to your system install):
 
 ```
-We are using OpenCV: 3.x.x
+We are using OpenCV: x.x.x
 .. do we have the Open CV Contrib Modules: xxxx
-We are using numpy: 1.x.x
-We are using matplotlib: 1.x.x
-.. and this is in Python: 3.x.x (default, xxxxx) [xxx]
+We are using numpy: x.x.x
+We are using matplotlib: x.x.x
+.. and this is in Python: x.x.x (default, xxxxx) [xxx]
 ```
 
 More generally an extended set of [OpenCV functionality tests](TESTING.md) is available (used to check OpenCV itself is working) and also a simple bash shell script (``test_all.sh``) to run through all the examples for semi-automated testing.
