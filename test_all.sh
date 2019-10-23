@@ -28,6 +28,9 @@ echo
 
 # run defaults
 
+echo "Running default tests ..."
+echo
+
 for example in *.py
 do
  echo "Testing example: " $example
@@ -38,6 +41,9 @@ done
 ################################################################################
 
 # run cam test
+
+echo "Running camera based tests ..."
+echo
 
 for example in *.py
 do
@@ -50,6 +56,9 @@ done
 
 # run cam test and resize
 
+echo "Running camera based tests with resizing ..."
+echo
+
 for example in *.py
 do
  echo "Testing example: " $example -c $CAM_TO_TEST -r 0.25
@@ -61,6 +70,9 @@ done
 ################################################################################
 
 # run video file test
+
+echo "Running video file based tests ..."
+echo
 
 for example in *.py
 do
