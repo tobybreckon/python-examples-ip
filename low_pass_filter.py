@@ -37,7 +37,6 @@ parser.add_argument("-r", "--rescale", type=float, help="rescale image by this f
 parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
 args = parser.parse_args()
 
-
 #####################################################################
 
 # create a simple low pass filter
