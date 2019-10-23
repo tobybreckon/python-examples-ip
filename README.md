@@ -76,6 +76,7 @@ We are using matplotlib: 1.x.x
 
 More generally an extended set of [OpenCV functionality tests](TESTING.md) is available (used to check OpenCV itself is working) and also a simple bash shell script (``test_all.sh``) to run through all the examples for semi-automated testing.
 
+All of these examples make use of the OpenCV ``VideoCapture()`` video capture interface directly for camera access and may therefore suffer from camera buffering delays (i.e. lag on video from camera). For an alternative camera access approach that offers a solution to this problem see the usage of the ``camera_stream.py`` class in the accompanying [OpenCV Python Computer Vision Examples used for Teaching](https://github.com/tobybreckon/python-examples-cv) repository.
 ---
 
 ### Reference:
