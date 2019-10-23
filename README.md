@@ -3,13 +3,33 @@
 OpenCV Python image processing examples used for teaching within the undergraduate Computer Science programme
 at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
 
-All tested with [OpenCV](http://www.opencv.org) 3.x and Python 3.x.
+All tested with [OpenCV](http://www.opencv.org) 3.x / 4.x and Python 3.x.
 
 ```
 # Example : <................................> processing from a video file
 # specified on the command line (e.g. python FILE.py video_file) or from an
 # attached web camera
 ```
+
+More generally most of the examples accessing camera or video can be used as follows:
+
+```
+python3 ./skeleton.py -h
+usage: skeleton.py [-h] [-c CAMERA_TO_USE] [-r RESCALE] [video_file]
+
+Perform ./skeleton.py example operation on incoming camera/video image
+
+positional arguments:
+  video_file            specify optional video file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -c CAMERA_TO_USE, --camera_to_use CAMERA_TO_USE
+                        specify camera to use
+  -r RESCALE, --rescale RESCALE
+                        rescale image by this factor
+```
+
 ---
 
 ### Background:
