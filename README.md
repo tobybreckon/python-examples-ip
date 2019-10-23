@@ -30,6 +30,10 @@ optional arguments:
                         rescale image by this factor
 ```
 
+Most run with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (supplied as a command line argument as per above).
+
+Demo source code is provided _"as is"_ to aid learning and understanding of topics on the course and beyond.
+
 ---
 
 ### Background:
@@ -70,11 +74,7 @@ We are using matplotlib: 1.x.x
 .. and this is in Python: 3.x.x (default, xxxxx) [xxx]
 ```
 
-Demo source code is provided _"as is"_ to aid learning and understanding of topics on the course and beyond.
-
-Most run with a webcam connected or from a command line supplied video file of a format OpenCV supports on your system (otherwise edit the script to provide your own image source).
-
-N.B. you may need to change the line near the top that specifies the camera device to use on some examples below - change "0" if you have one webcam, I have it set to "1" to skip my built-in laptop webcam and use the connected USB camera.
+More generally an extended set of [OpenCV functionality tests](TESTING.md) is available (used to check OpenCV itself is working) and also a simple bash shell script (``test_all.sh``) to run through all the examples for semi-automated testing.
 
 ---
 
@@ -89,17 +89,14 @@ ISBN: 0470844736, DOI:10.1002/9780470689776, http://www.fundipbook.com
 (which also has Matlab code examples of many of the same techniques here - [https://github.com/tobybreckon/solomon-breckon-book.git]( https://github.com/tobybreckon/solomon-breckon-book.git))
 
 ```
-bibtex:
-
 @Book{solomonbreckon10fundamentals,
-  author 	= 	 {Solomon, C.J. and Breckon, T.P.},
-  title 	= 	 {Fundamentals of Digital Image Processing:
-                                A Practical Approach with Examples in Matlab},
-  publisher 	= 	 {Wiley-Blackwell},
-  year 		= 	 {2010},
-  isbn 		= {0470844736},
-  doi 		= {10.1002/9780470689776},
-  url 		= {http://www.fundipbook.com}
+  author 	    = 	 {Solomon, C.J. and Breckon, T.P.},
+  title 	     = 	 {Fundamentals of Digital Image Processing: A Practical Approach with Examples in Matlab},
+  publisher 	 = 	 {Wiley-Blackwell},
+  year 		  =   {2010},
+  isbn      =   {0470844736},
+  doi       = {10.1002/9780470689776},
+  url       = {http://www.fundipbook.com}
 }
 ```
 
