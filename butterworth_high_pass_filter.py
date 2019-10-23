@@ -21,6 +21,12 @@ import math
 
 #####################################################################
 
+# ignore divide by zero errors in np.log() operations
+
+np.seterr(divide = 'ignore')
+
+#####################################################################
+
 keep_processing = True
 
 # parse command line arguments for camera ID or video file

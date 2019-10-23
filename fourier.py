@@ -17,6 +17,11 @@ import argparse
 import sys
 import numpy as np
 import math
+#####################################################################
+
+# ignore divide by zero errors in np.log() operations
+
+np.seterr(divide = 'ignore')
 
 #####################################################################
 
