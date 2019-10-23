@@ -96,11 +96,12 @@ pressing 'x' closes window.
 ```
 .. (as per test 1 for steps 1 + 2)
 <<< connect a usb web-cam (any web-cam)
-python3 ./save_video.py
+python3 ./save_video.py -c 0
 ```
 
 ## Result #3:
 - possible error message such as "???... ???? Unable to open source 'input.avi'" - _ignore this_.
+- possible error message relating to inability to read from camera or video device (try with ``-c 1`` or greater to address different video devices)
 - a window appears with live video from camera, pressing 'x' closes window and ends program (saving a video file).
 -  video file saved as _output.avi_ file can be played in [vlc](http://www.vlc.org) or similar.
 - Ignore _"cannot open video messages"_ from ffpmeg/xine or similar (this is it failing to open video file as alt. to camera, not write from camera).
