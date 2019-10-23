@@ -12,11 +12,17 @@
 
 import numpy as np
 import cv2
+import argparse
 import sys
 
 #####################################################################
 
-camera_to_use = 1; # 0 if you have one camera, 1 or > 1 otherwise
+# parse command line arguments for camera ID or video file
+
+parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
+parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
+parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+args = parser.parse_args()
 
 #####################################################################
 
@@ -30,7 +36,7 @@ windowName = "Live Camera Input"; # window name
 
 # open camera device (and check it worked)
 
-if not(cap.open(camera_to_use)):
+if not(cap.open(args.camera_to_use)):
     print("Cannot open camera - check connection and operation as suggested.");
     sys.exit;
 

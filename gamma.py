@@ -13,14 +13,23 @@
 #####################################################################
 
 import cv2
+import argparse
 import math
 import sys
 import numpy as np
 
 #####################################################################
 
-keep_processing = True;
-camera_to_use = 1; # 0 if you have one camera, 1 or > 1 otherwise
+keep_processing = True
+
+# parse command line arguments for camera ID or video file
+
+parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
+parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
+parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
+args = parser.parse_args()
+
 
 #####################################################################
 
@@ -58,11 +67,11 @@ cap = cv2.VideoCapture();
 windowName = "Live Camera Input"; # window name
 windowName2 = "Gamma Corrected (Power-Law Transform)"; # window name
 
-# if command line arguments are provided try to read video_name
+# if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
-if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
-    or (cap.open(camera_to_use))):
+if (((args.video_file) and (cap.open(str(args.video_file))))
+    or (cap.open(args.camera_to_use))):
 
     # create window by name (as resizable)
 
@@ -77,10 +86,21 @@ if (((len(sys.argv) == 2) and (cap.open(str(sys.argv[1]))))
 
     while (keep_processing):
 
-        # if video file successfully open then read frame from video
+        # if video file or camera successfully open then read frame from video
 
         if (cap.isOpened):
-            ret, frame = cap.read();
+            ret, frame = cap.read()
+
+            # when we reach the end of the video (file) exit cleanly
+
+            if (ret == 0):
+                keep_processing = False
+                continue
+
+            # rescale if specified
+
+            if (args.rescale != 1.0):
+                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # get parameters from track bars
 

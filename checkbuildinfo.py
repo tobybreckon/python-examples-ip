@@ -11,6 +11,7 @@
 #####################################################################
 
 import cv2
+import argparse
 
 print("You are using OpenCV: " + cv2.__version__);
 print();

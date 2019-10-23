@@ -13,12 +13,19 @@
 #####################################################################
 
 import cv2
+import argparse
 import sys
 
 #####################################################################
 
-keep_processing = True;
-camera_to_use = 0; # 0 if you have one camera, 1 or > 1 otherwise
+keep_processing = True
+
+# parse command line arguments for camera ID or video file
+
+parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
+parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
+parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+args = parser.parse_args()
 
 video_width = 640;
 video_height = 480;
@@ -38,10 +45,10 @@ windowName = "Live Camera Input -> Video File"; # window name
 fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G');
 output = cv2.VideoWriter('output.avi',fourcc, 25.0, (video_width,video_height));
 
-# if command line arguments are provided try to read video_name
+# if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
-if ((cap.open("input.avi")) or (cap.open(camera_to_use))):
+if ((cap.open("input.avi")) or (cap.open(args.camera_to_use))):
 
     # create window by name (as resizable)
 
@@ -49,10 +56,21 @@ if ((cap.open("input.avi")) or (cap.open(camera_to_use))):
 
     while (keep_processing):
 
-        # if video file successfully open then read frame from video
+        # if video file or camera successfully open then read frame from video
 
         if (cap.isOpened):
-            ret, frame = cap.read();
+            ret, frame = cap.read()
+
+            # when we reach the end of the video (file) exit cleanly
+
+            if (ret == 0):
+                keep_processing = False
+                continue
+
+            # rescale if specified
+
+            if (args.rescale != 1.0):
+                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # *** do any processing here ****
 
