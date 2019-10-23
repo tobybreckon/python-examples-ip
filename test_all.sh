@@ -19,6 +19,11 @@ echo Using $PYTHON_INTERPRETATOR with camera $CAM_TO_TEST and video $VIDEO_TO_TE
 echo "Running test suite - press 'x' in OpenCV window to exist each example."
 echo
 
+# get testing resouces if they do not exist
+
+[ -f example.jpg ] || { wget https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg; mv JPEG_example_JPG_RIP_100.jpg example.jpg; }
+[ -f video.avi ] || { wget http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4; mv big_buck_bunny.mp4 video.avi; }
+
 ################################################################################
 
 # run defaults
