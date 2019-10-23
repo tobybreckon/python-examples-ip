@@ -34,14 +34,14 @@ args = parser.parse_args()
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowNameR = "Red Colour Channel"; # window name
-windowNameG = "Green Colour Channel"; # window name
-windowNameB = "Blue Colour Channel"; # window name
+windowName = "Live Camera Input" # window name
+windowNameR = "Red Colour Channel" # window name
+windowNameG = "Green Colour Channel" # window name
+windowNameB = "Blue Colour Channel" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -51,7 +51,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
@@ -73,21 +73,21 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start a timer (to see how long processing and display takes)
 
-        start_t = cv2.getTickCount();
+        start_t = cv2.getTickCount()
 
         # display images
 
-        cv2.imshow(windowName,frame);
+        cv2.imshow(windowName,frame)
 
         # remember colour channels are BGR ordering in OpenCV
 
-        cv2.imshow(windowNameR,frame[:,:,2]); # red
-        cv2.imshow(windowNameG,frame[:,:,1]); # green
-        cv2.imshow(windowNameB,frame[:,:,0]); # green
+        cv2.imshow(windowNameR,frame[:,:,2]) # red
+        cv2.imshow(windowNameG,frame[:,:,1]) # green
+        cv2.imshow(windowNameB,frame[:,:,0]) # green
 
         # stop the timer and convert to ms. (to see how long processing and display takes)
 
-        stop_t = ((cv2.getTickCount() - start_t)/cv2.getTickFrequency()) * 1000;
+        stop_t = ((cv2.getTickCount() - start_t)/cv2.getTickFrequency()) * 1000
 
         # start the event loop - essential
 
@@ -100,14 +100,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms / 25 fps = 40 ms)
 
-        key = cv2.waitKey(max(2, 40 - int(math.ceil(stop_t)))) & 0xFF;
+        key = cv2.waitKey(max(2, 40 - int(math.ceil(stop_t)))) & 0xFF
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

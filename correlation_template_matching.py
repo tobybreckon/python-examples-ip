@@ -36,47 +36,47 @@ parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', hel
 args = parser.parse_args()
 
 
-selection_in_progress = False; # support interactive region selection
+selection_in_progress = False # support interactive region selection
 
 #####################################################################
 
 # select a region using the mouse
 
-boxes = [];
-current_mouse_position = np.ones(2, dtype=np.int32);
+boxes = []
+current_mouse_position = np.ones(2, dtype=np.int32)
 
 def on_mouse(event, x, y, flags, params):
 
-    global boxes;
-    global selection_in_progress;
+    global boxes
+    global selection_in_progress
 
-    current_mouse_position[0] = x;
-    current_mouse_position[1] = y;
+    current_mouse_position[0] = x
+    current_mouse_position[1] = y
 
     if event == cv2.EVENT_LBUTTONDOWN:
-        boxes = [];
+        boxes = []
         # print 'Start Mouse Position: '+str(x)+', '+str(y)
-        sbox = [x, y];
-        selection_in_progress = True;
-        boxes.append(sbox);
+        sbox = [x, y]
+        selection_in_progress = True
+        boxes.append(sbox)
 
     elif event == cv2.EVENT_LBUTTONUP:
         # print 'End Mouse Position: '+str(x)+', '+str(y)
-        ebox = [x, y];
-        selection_in_progress = False;
-        boxes.append(ebox);
+        ebox = [x, y]
+        selection_in_progress = False
+        boxes.append(ebox)
 
 #####################################################################
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Correlation Output"; # window name
-windowNameSelection = "selected";
+windowName = "Live Camera Input" # window name
+windowName2 = "Correlation Output" # window name
+windowNameSelection = "selected"
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -86,14 +86,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowNameSelection, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowNameSelection, cv2.WINDOW_NORMAL)
 
     # set a mouse callback
 
-    cv2.setMouseCallback(windowName, on_mouse, 0);
-    cropped = False;
+    cv2.setMouseCallback(windowName, on_mouse, 0)
+    cropped = False
 
     # usage
 
@@ -119,45 +119,45 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start a timer (to see how long processing and display takes)
 
-        start_t = cv2.getTickCount();
+        start_t = cv2.getTickCount()
 
         # select region using the mouse and display it
 
         if (len(boxes) > 1) and (boxes[0][1] < boxes[1][1]) and (boxes[0][0] < boxes[1][0]):
             crop = frame[boxes[0][1]:boxes[1][1],boxes[0][0]:boxes[1][0]].copy()
-            boxes = [];
-            h, w, c = crop.shape;   # size of template
+            boxes = []
+            h, w, c = crop.shape   # size of template
             if (h > 0) and (w > 0):
-                cropped = True;
-                cv2.imshow(windowNameSelection,crop);
+                cropped = True
+                cv2.imshow(windowNameSelection,crop)
 
         # interactive display of selection box
 
         if (selection_in_progress):
-            top_left = (boxes[0][0], boxes[0][1]);
-            bottom_right = (current_mouse_position[0], current_mouse_position[1]);
-            cv2.rectangle(frame,top_left, bottom_right, (0,255,0), 2);
+            top_left = (boxes[0][0], boxes[0][1])
+            bottom_right = (current_mouse_position[0], current_mouse_position[1])
+            cv2.rectangle(frame,top_left, bottom_right, (0,255,0), 2)
 
         # if we have cropped a region perform template matching using
         # (normalized) cross correlation and draw rectangle around best match
 
         if cropped:
-            correlation = cv2.matchTemplate(frame,crop,cv2.TM_CCOEFF_NORMED);
-            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(correlation);
-            h, w, c = crop.shape;   # size of template
-            top_left = max_loc;     # top left of where template matches image frame
-            bottom_right = (top_left[0] + w, top_left[1] + h);
-            cv2.rectangle(frame,top_left, bottom_right, (0,0,255), 2);
+            correlation = cv2.matchTemplate(frame,crop,cv2.TM_CCOEFF_NORMED)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(correlation)
+            h, w, c = crop.shape   # size of template
+            top_left = max_loc     # top left of where template matches image frame
+            bottom_right = (top_left[0] + w, top_left[1] + h)
+            cv2.rectangle(frame,top_left, bottom_right, (0,0,255), 2)
 
-            cv2.imshow(windowName2,correlation);
+            cv2.imshow(windowName2,correlation)
 
         # display image
 
-        cv2.imshow(windowName,frame);
+        cv2.imshow(windowName,frame)
 
         # stop the timer and convert to ms. (to see how long processing and display takes)
 
-        stop_t = ((cv2.getTickCount() - start_t)/cv2.getTickFrequency()) * 1000;
+        stop_t = ((cv2.getTickCount() - start_t)/cv2.getTickFrequency()) * 1000
 
         # start the event loop - essential
 
@@ -170,14 +170,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms / 25 fps = 40 ms)
 
-        key = cv2.waitKey(max(2, 40 - int(math.ceil(stop_t)))) & 0xFF;
+        key = cv2.waitKey(max(2, 40 - int(math.ceil(stop_t)))) & 0xFF
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

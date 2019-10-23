@@ -54,18 +54,18 @@ def powerlaw_transform(I, gamma):
 
     I = np.clip(np.power(I, gamma), 0, 255).astype('uint8')
 
-    return I;
+    return I
 
 #####################################################################
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Gamma Corrected (Power-Law Transform)"; # window name
+windowName = "Live Camera Input" # window name
+windowName2 = "Gamma Corrected (Power-Law Transform)" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -75,14 +75,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE);
+    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
-    gamma = 100; # default gamma - no change
+    gamma = 100 # default gamma - no change
 
-    cv2.createTrackbar("gamma, (* 0.01)", windowName2, gamma, 500, nothing);
+    cv2.createTrackbar("gamma, (* 0.01)", windowName2, gamma, 500, nothing)
 
     while (keep_processing):
 
@@ -104,20 +104,20 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        gamma = cv2.getTrackbarPos("gamma, (* 0.01)", windowName2) * 0.01;
+        gamma = cv2.getTrackbarPos("gamma, (* 0.01)", windowName2) * 0.01
 
         # make a copy
 
-        gamma_img = frame.copy();
+        gamma_img = frame.copy()
 
         # use power-law function to perform gamma correction
 
-        gamma_img = powerlaw_transform(gamma_img, gamma);
+        gamma_img = powerlaw_transform(gamma_img, gamma)
 
         # display image
 
-        cv2.imshow(windowName, frame);
-        cv2.imshow(windowName2, gamma_img);
+        cv2.imshow(windowName, frame)
+        cv2.imshow(windowName2, gamma_img)
 
         # start the event loop - essential
 
@@ -127,14 +127,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

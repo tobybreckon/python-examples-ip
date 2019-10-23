@@ -40,13 +40,13 @@ def nothing(x):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Mean Filtering"; # window name
-windowName3 = "Non-Local Means Filtering"; # window name
+windowName = "Live Camera Input" # window name
+windowName2 = "Mean Filtering" # window name
+windowName3 = "Non-Local Means Filtering" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -56,18 +56,18 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE);
+    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
-    neighbourhood = 7;
-    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 25, nothing);
-    searchW = 21;
-    cv2.createTrackbar("search area, W", windowName3, searchW, 50, nothing);
-    filter_strength = 10;
-    cv2.createTrackbar("strength, h", windowName3, filter_strength, 25, nothing);
+    neighbourhood = 7
+    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 25, nothing)
+    searchW = 21
+    cv2.createTrackbar("search area, W", windowName3, searchW, 50, nothing)
+    filter_strength = 10
+    cv2.createTrackbar("strength, h", windowName3, filter_strength, 25, nothing)
 
     while (keep_processing):
 
@@ -89,30 +89,30 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2);
-        searchW = cv2.getTrackbarPos("search area, W", windowName3);
-        filter_strength = cv2.getTrackbarPos("strength, h", windowName3);
+        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2)
+        searchW = cv2.getTrackbarPos("search area, W", windowName3)
+        filter_strength = cv2.getTrackbarPos("strength, h", windowName3)
 
         # check neighbourhood is greater than 3 and odd
 
-        neighbourhood = max(3, neighbourhood);
+        neighbourhood = max(3, neighbourhood)
         if not(neighbourhood % 2):
-            neighbourhood = neighbourhood + 1;
+            neighbourhood = neighbourhood + 1
 
         # in opencv blur() performs filtering with a NxN kernel where each element has a weight of
         # 1 / (N^2) - this is mean filtering
 
-        mean_img = cv2.blur(frame, (neighbourhood,neighbourhood), borderType=cv2.BORDER_DEFAULT);
+        mean_img = cv2.blur(frame, (neighbourhood,neighbourhood), borderType=cv2.BORDER_DEFAULT)
 
         # perform NLM filtering on the same image
 
-        nlm_img = cv2.fastNlMeansDenoisingColored(frame, h=filter_strength, hColor=10, templateWindowSize=neighbourhood, searchWindowSize=searchW);
+        nlm_img = cv2.fastNlMeansDenoisingColored(frame, h=filter_strength, hColor=10, templateWindowSize=neighbourhood, searchWindowSize=searchW)
 
         # display image
 
-        cv2.imshow(windowName, frame);
-        cv2.imshow(windowName2, mean_img);
-        cv2.imshow(windowName3, nlm_img);
+        cv2.imshow(windowName, frame)
+        cv2.imshow(windowName2, mean_img)
+        cv2.imshow(windowName3, nlm_img)
 
         # start the event loop - essential
 
@@ -122,14 +122,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

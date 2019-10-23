@@ -41,13 +41,13 @@ def nothing(x):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Gaussian Smoothing"; # window name
-windowName3 = "Bilaterial Filtering"; # window name
+windowName = "Live Camera Input" # window name
+windowName2 = "Gaussian Smoothing" # window name
+windowName3 = "Bilaterial Filtering" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -56,23 +56,23 @@ if cap.open(args.camera_to_use):
 
     # create window by name
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE);
+    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings Gaussian smoothing
 
-    neighbourhood = 3;
-    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 40, nothing);
-    sigma = 1;
-    cv2.createTrackbar("sigma", windowName2, sigma, 10, nothing);
+    neighbourhood = 3
+    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 40, nothing)
+    sigma = 1
+    cv2.createTrackbar("sigma", windowName2, sigma, 10, nothing)
 
     # add some track bar controllers for settings bilateral smoothing
 
-    sigmaS = 10;
-    cv2.createTrackbar("sigmaS", windowName3, sigmaS, 25, nothing);
-    sigmaR = 10;
-    cv2.createTrackbar("sigmaR", windowName3, sigmaR, 25, nothing);
+    sigmaS = 10
+    cv2.createTrackbar("sigmaS", windowName3, sigmaS, 25, nothing)
+    sigmaR = 10
+    cv2.createTrackbar("sigmaR", windowName3, sigmaR, 25, nothing)
 
     while (keep_processing):
 
@@ -94,33 +94,33 @@ if cap.open(args.camera_to_use):
 
         # get parameter from track bars - Gaussian
 
-        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2);
-        sigma = cv2.getTrackbarPos("sigma", windowName2);
+        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2)
+        sigma = cv2.getTrackbarPos("sigma", windowName2)
 
         # get parameter from track bars - bilateral
 
-        sigmaS = cv2.getTrackbarPos("sigmaS", windowName3);
-        sigmaR = cv2.getTrackbarPos("sigmaR", windowName3);
+        sigmaS = cv2.getTrackbarPos("sigmaS", windowName3)
+        sigmaR = cv2.getTrackbarPos("sigmaR", windowName3)
 
         # check neighbourhood is greater than 3 and odd
 
-        neighbourhood = max(3, neighbourhood);
+        neighbourhood = max(3, neighbourhood)
         if not(neighbourhood % 2):
-            neighbourhood = neighbourhood + 1;
+            neighbourhood = neighbourhood + 1
 
         # perform Gaussian smoothing using NxN neighbourhood
 
-        smoothed_img = cv2.GaussianBlur(frame, (neighbourhood, neighbourhood), sigma, sigma, borderType=cv2.BORDER_REPLICATE);
+        smoothed_img = cv2.GaussianBlur(frame, (neighbourhood, neighbourhood), sigma, sigma, borderType=cv2.BORDER_REPLICATE)
 
         # perform bilateral filtering using a neighbourhood calculated automatically from sigmaS
 
-        filtered_img = cv2.bilateralFilter(frame, -1, sigmaR, sigmaS, borderType=cv2.BORDER_REPLICATE);
+        filtered_img = cv2.bilateralFilter(frame, -1, sigmaR, sigmaS, borderType=cv2.BORDER_REPLICATE)
 
         # display image
 
-        cv2.imshow(windowName, frame);
-        cv2.imshow(windowName2, smoothed_img);
-        cv2.imshow(windowName3, filtered_img);
+        cv2.imshow(windowName, frame)
+        cv2.imshow(windowName2, smoothed_img)
+        cv2.imshow(windowName3, filtered_img)
 
         # start the event loop - essential
 
@@ -130,14 +130,14 @@ if cap.open(args.camera_to_use):
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

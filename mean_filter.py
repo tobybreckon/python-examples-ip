@@ -41,13 +41,13 @@ def nothing(x):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Mean Filtering"; # window name
-windowName3 = "Non-Local Means (NLM) Filtering"; # window name
+windowName = "Live Camera Input" # window name
+windowName2 = "Mean Filtering" # window name
+windowName3 = "Non-Local Means (NLM) Filtering" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -57,14 +57,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE);
-    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE);
+    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
-    neighbourhood = 3;
-    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 25, nothing);
+    neighbourhood = 3
+    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 25, nothing)
 
     while (keep_processing):
 
@@ -86,19 +86,19 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2);
+        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2)
 
-        neighbourhood = max(3, neighbourhood);
+        neighbourhood = max(3, neighbourhood)
 
         # in opencv blur() performs filtering with a NxN kernel where each element has a weight of
         # 1 / (N^2) - this is mean filtering
 
-        mean_img = cv2.blur(frame, (neighbourhood,neighbourhood), borderType=cv2.BORDER_DEFAULT);
+        mean_img = cv2.blur(frame, (neighbourhood,neighbourhood), borderType=cv2.BORDER_DEFAULT)
 
         # display image
 
-        cv2.imshow(windowName, frame);
-        cv2.imshow(windowName2, mean_img);
+        cv2.imshow(windowName, frame)
+        cv2.imshow(windowName2, mean_img)
 
         # start the event loop - essential
 
@@ -108,14 +108,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

@@ -59,14 +59,14 @@ def nothing(x):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName1 = "Live Camera Input"; # window name
-windowName2 = "Input Histogram"; # window name
-windowName3 = "Processed Output"; # window name
-windowName4 = "Output Histogram"; # window name
+windowName1 = "Live Camera Input" # window name
+windowName2 = "Input Histogram" # window name
+windowName3 = "Processed Output" # window name
+windowName4 = "Output Histogram" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -76,17 +76,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName1, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName4, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName1, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName4, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
-    clip_limit = 2;
-    cv2.createTrackbar("clip limit", windowName4, clip_limit, 25, nothing);
-    tile_size = 8;
-    cv2.createTrackbar("tile size", windowName4, tile_size, 64, nothing);
+    clip_limit = 2
+    cv2.createTrackbar("clip limit", windowName4, clip_limit, 25, nothing)
+    tile_size = 8
+    cv2.createTrackbar("tile size", windowName4, tile_size, 64, nothing)
 
     while (keep_processing):
 
@@ -108,7 +108,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # convert to grayscale
 
-        gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY);
+        gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # perform contrast limited adaptive equalization
         # based on example at:
@@ -116,20 +116,20 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        clip_limit = cv2.getTrackbarPos("clip limit", windowName4);
-        tile_size = cv2.getTrackbarPos("tile size", windowName4);
+        clip_limit = cv2.getTrackbarPos("clip limit", windowName4)
+        tile_size = cv2.getTrackbarPos("tile size", windowName4)
 
         # perform filtering
 
-        clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(tile_size,tile_size)); # create filter
-        output = clahe.apply(gray_img); # apply filter
+        clahe = cv2.createCLAHE(clipLimit=clip_limit, tileGridSize=(tile_size,tile_size)) # create filter
+        output = clahe.apply(gray_img) # apply filter
 
         # display image
 
-        cv2.imshow(windowName1,gray_img);
-        cv2.imshow(windowName2,hist_lines(cv2.calcHist([gray_img],[0],None,[256],[0,256])));
-        cv2.imshow(windowName3,output);
-        cv2.imshow(windowName4,hist_lines(cv2.calcHist([output],[0],None,[256],[0,256])));
+        cv2.imshow(windowName1,gray_img)
+        cv2.imshow(windowName2,hist_lines(cv2.calcHist([gray_img],[0],None,[256],[0,256])))
+        cv2.imshow(windowName3,output)
+        cv2.imshow(windowName4,hist_lines(cv2.calcHist([output],[0],None,[256],[0,256])))
 
         # start the event loop - essential
 
@@ -139,14 +139,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

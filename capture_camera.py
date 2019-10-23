@@ -29,26 +29,26 @@ args = parser.parse_args()
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
+windowName = "Live Camera Input" # window name
 
 # open camera device (and check it worked)
 
 if not(cap.open(args.camera_to_use)):
-    print("Cannot open camera - check connection and operation as suggested.");
-    sys.exit;
+    print("Cannot open camera - check connection and operation as suggested.")
+    sys.exit
 
 # read an image from the camera
 
-ret, frame = cap.read();
+ret, frame = cap.read()
 
 # to avoid the black/blank first frame from many cameras
 # with some (not all) cameras you need to read the first frame twice (first frame only)
 
-ret, frame = cap.read();
+ret, frame = cap.read()
 
 # check it has loaded
 
@@ -56,16 +56,16 @@ if not frame is None:
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
 
     # display image
 
-    cv2.imshow(windowName,frame);
+    cv2.imshow(windowName,frame)
 
     # start the event loop - essential
     # wait indefinitely for any key press
 
-    cv2.waitKey(0);
+    cv2.waitKey(0)
 
 else:
     print("No image successfully loaded from camera.")

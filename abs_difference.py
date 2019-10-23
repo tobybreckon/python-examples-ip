@@ -28,7 +28,7 @@ parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to u
 parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
 parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
 args = parser.parse_args()
-use_greyscale = False;
+use_greyscale = False
 
 
 #####################################################################
@@ -43,12 +43,12 @@ def nothing(x):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"; # window name
-windowName2 = "Difference Image"; # window name
+windowName = "Live Camera Input" # window name
+windowName2 = "Difference Image" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -58,24 +58,24 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
-    contrast = 1;
-    cv2.createTrackbar("contrast", windowName2, contrast, 30, nothing);
+    contrast = 1
+    cv2.createTrackbar("contrast", windowName2, contrast, 30, nothing)
 
-    fps = 25;
-    cv2.createTrackbar("fps", windowName2, fps, 25, nothing);
+    fps = 25
+    cv2.createTrackbar("fps", windowName2, fps, 25, nothing)
 
-    threshold = 0;
-    cv2.createTrackbar("threshold", windowName2, threshold, 255, nothing);
+    threshold = 0
+    cv2.createTrackbar("threshold", windowName2, threshold, 255, nothing)
 
     # if video file or camera successfully open then read frame from video
 
     if (cap.isOpened):
-            ret, frame = cap.read();
+            ret, frame = cap.read()
 
             # rescale if specified
 
@@ -85,7 +85,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
     # make a deep copy of this (as all camera frames otherwise reside
     # in the same portion of allocated memory)
 
-    prev_frame = frame.copy();
+    prev_frame = frame.copy()
 
     while (keep_processing):
 
@@ -106,43 +106,43 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
                 frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         if (use_greyscale):
-            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY);
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             # if the previous frame we stored also has 3 channels (colour)
             if (len(prev_frame.shape) == 3):
                 # convert it, otherwise absdiff() will break
-                prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_BGR2GRAY);
+                prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_BGR2GRAY)
 
         # performing absolute differencing between consecutive frames
 
-        diff_img = cv2.absdiff(prev_frame, frame);
+        diff_img = cv2.absdiff(prev_frame, frame)
 
         # retrieve the contrast setting from the track bar
 
-        contrast = cv2.getTrackbarPos("contrast",windowName2);
+        contrast = cv2.getTrackbarPos("contrast",windowName2)
 
         # multiple the result to increase the contrast (so we can see small pixel changes)
 
-        brightened_img = diff_img * contrast;
+        brightened_img = diff_img * contrast
 
         # display images
 
-        cv2.imshow(windowName, frame);
+        cv2.imshow(windowName, frame)
 
         # threshold the image if its in grayscale and we have a valid threshold
 
-        threshold = cv2.getTrackbarPos("threshold",windowName2);
+        threshold = cv2.getTrackbarPos("threshold",windowName2)
 
         if (use_greyscale and (threshold > 0)):
 
             # display thresholded image if threshold > 0
             # thresholding : if pixel > (threshold value) set to 255 (white), otherwise set to 0 (black)
 
-            ret, thresholded_img = cv2.threshold(brightened_img, 127, 255, cv2.THRESH_BINARY);
-            cv2.imshow(windowName2, thresholded_img);
+            ret, thresholded_img = cv2.threshold(brightened_img, 127, 255, cv2.THRESH_BINARY)
+            cv2.imshow(windowName2, thresholded_img)
         else:
             # otherwise just display the non-thresholded one
 
-            cv2.imshow(windowName2, brightened_img);
+            cv2.imshow(windowName2, brightened_img)
 
         # start the event loop - essential
 
@@ -152,32 +152,32 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        fps = cv2.getTrackbarPos("fps",windowName2);
-        key = cv2.waitKey(int(1000 / max(1,fps))) & 0xFF; # wait T ms (i.e. 1000ms / 25 fps = 40 ms)
+        fps = cv2.getTrackbarPos("fps",windowName2)
+        key = cv2.waitKey(int(1000 / max(1,fps))) & 0xFF # wait T ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
         elif (key == ord('g')):
 
             # toggle grayscale usage (when they press 'g')
 
-            use_greyscale = not(use_greyscale);
+            use_greyscale = not(use_greyscale)
 
             # if the previous frame we stored also has 3 channels (colour)
             if (len(prev_frame.shape) != 3):
                 # convert it to just copying the gray information to all of the
                 # three channels (this is a hack), otherwise absdiff() will break
-                prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_GRAY2BGR);
+                prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_GRAY2BGR)
         else:
 
             # make a deep copy of the current frame (as all camera frames otherwise reside
             # in the same portion of allocated memory)
-            prev_frame = frame.copy();
+            prev_frame = frame.copy()
 
     # close all windows
 

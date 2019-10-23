@@ -18,7 +18,7 @@ import argparse
 
 # read an image from the specified file (in colour)
 
-img = cv2.imread('example.jpg', cv2.IMREAD_COLOR);
+img = cv2.imread('example.jpg', cv2.IMREAD_COLOR)
 
 # check it has loaded
 
@@ -26,11 +26,11 @@ if not img is None:
 
     # performing logical inversion (see manual entry for bitwise_not()
 
-    inverted = cv2.bitwise_not(img);
+    inverted = cv2.bitwise_not(img)
 
     # write inverted image to file
 
-    cv2.imwrite("inverted.jpg", inverted);
+    cv2.imwrite("inverted.jpg", inverted)
 
 else:
     print("No image file successfully loaded.")

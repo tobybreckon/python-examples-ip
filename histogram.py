@@ -61,13 +61,13 @@ def hist_lines(hist):
 
 # define video capture object
 
-cap = cv2.VideoCapture();
+cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input (as Greyscale)"; # window name
-windowName2 = "Histogram (bar graph)"; # window name
-windowName3 = "Histogram (line graph)"; # window name
+windowName = "Live Camera Input (as Greyscale)" # window name
+windowName2 = "Histogram (bar graph)" # window name
+windowName3 = "Histogram (line graph)" # window name
 
 
 # if command line arguments are provided try to read video_file
@@ -78,9 +78,9 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL);
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL);
+    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
@@ -102,24 +102,24 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # convert to grayscale
 
-        gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY);
+        gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
         # calculate the histogram over the whole image, for 1 channel
         # with one bin (histogram entry) for each value in the range 0 -> 255
 
-        hist = cv2.calcHist([gray_img],[0],None,[256],[0,256]);
+        hist = cv2.calcHist([gray_img],[0],None,[256],[0,256])
 
         # draw the histogram distribution as an image
         # in two different visual forms (same info.)
 
-        hist_img = hist_lines(hist);
-        hist_img2 = hist_curve(hist);
+        hist_img = hist_lines(hist)
+        hist_img2 = hist_curve(hist)
 
         # display images
 
-        cv2.imshow(windowName,gray_img);
-        cv2.imshow(windowName2,hist_img);
-        cv2.imshow(windowName3,hist_img2);
+        cv2.imshow(windowName,gray_img)
+        cv2.imshow(windowName2,hist_img)
+        cv2.imshow(windowName3,hist_img2)
 
         # start the event loop - essential
 
@@ -129,14 +129,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF; # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
 
         # It can also be set to detect specific key strokes by recording which key is pressed
 
         # e.g. if user presses "x" then exit
 
         if (key == ord('x')):
-            keep_processing = False;
+            keep_processing = False
 
     # close all windows
 

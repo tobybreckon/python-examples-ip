@@ -13,9 +13,9 @@
 import cv2
 import argparse
 
-print("You are using OpenCV: " + cv2.__version__);
-print();
+print("You are using OpenCV: " + cv2.__version__)
+print()
 print("OpenCV is built using the following options:")
-print(cv2.getBuildInformation());
+print(cv2.getBuildInformation())
 
 #####################################################################

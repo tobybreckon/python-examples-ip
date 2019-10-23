@@ -31,7 +31,7 @@ We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
 ```
-- such that CCC >= 4.x.x (or higher); PPP > 3.x; ??? = (doesn't matter).
+- such that CCC >= 4.x.x (or higher) PPP > 3.x ??? = (doesn't matter).
 
 [ to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
