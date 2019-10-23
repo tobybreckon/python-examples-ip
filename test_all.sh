@@ -21,8 +21,8 @@ echo
 
 # get testing resouces if they do not exist
 
-[ -f example.jpg ] || { wget https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg mv JPEG_example_JPG_RIP_100.jpg example.jpg }
-[ -f video.avi ] || { wget http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4 mv big_buck_bunny.mp4 video.avi }
+[ -f example.jpg ] || { wget https://upload.wikimedia.org/wikipedia/commons/b/b4/JPEG_example_JPG_RIP_100.jpg; mv JPEG_example_JPG_RIP_100.jpg example.jpg; }
+[ -f video.avi ] || { wget http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4; mv big_buck_bunny.mp4 video.avi; }
 
 ################################################################################
 
