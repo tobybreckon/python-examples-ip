@@ -47,7 +47,6 @@ cap = cv2.VideoCapture()
 
 windowName = "Live Camera Input" # window name
 windowName2 = "Mean Filtering" # window name
-windowName3 = "Non-Local Means (NLM) Filtering" # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -59,7 +58,6 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
     cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
-    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
