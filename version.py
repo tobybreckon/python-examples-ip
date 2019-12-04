@@ -11,7 +11,6 @@
 #####################################################################
 
 import cv2
-import argparse
 import numpy as np
 import sys
 import struct
