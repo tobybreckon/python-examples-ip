@@ -31,7 +31,7 @@ We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
 ```
-- such that CCC >= 4.x.x (or higher) PPP > 3.x ??? = (doesn't matter).
+- such that CCC >= 4.3.x (or higher) PPP > 3.x ??? = (doesn't matter).
 
 [ to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
@@ -53,7 +53,7 @@ python3 ./checkbuildinfo.py
 |------------------------------------ | ----- | --------|
 | Platform: ... Configuration:        |Release|Release|
 | Built as dynamic libs:             | YES | YES |
-| OpenCV modules: | contains: core flann ... imgproc ... ml ... imgcodecs ... videoio .. xfeatures2d ... ximgproc ... optflow ... stitching | <-- same as Linux|
+| OpenCV modules: | contains: core flann ... imgproc ... ml ... imgcodecs ... videoio .. xfeatures2d ... dnn ... dnn_objdetect ... ximgproc ... optflow ... stitching ... **cuda** | <-- same as Linux|
 |    Non-free algorithms:  | YES | YES |
 | QT:                          | NO | NO |
 |    GTK+ 2.x:                 |   YES | NO |
@@ -71,6 +71,10 @@ python3 ./checkbuildinfo.py
 |    gPhoto2:                 |   YES | NO |
 | Parallel framework:         |   pthreads | ??? |
 | Use IPP:                    | present | NO |
+| **NVIDIA CUDA:**              |   YES ( >= 10.x) | NO |
+| **OpenCL:**                   |   YES |  YES |
+
+- elements **in bold** required for OpenCV 4.3.x and later on Linux (to enable GPU use for CNN/DNN inference via DNN module).
 
 ---
 
