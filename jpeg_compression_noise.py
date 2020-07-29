@@ -24,10 +24,28 @@ keep_processing = True
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
-parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
+parser.add_argument(
+    'video_file',
+    metavar='video_file',
+    type=str,
+    nargs='?',
+    help='specify optional video file')
 args = parser.parse_args()
 
 
@@ -43,19 +61,20 @@ def nothing(x):
 
 # define video capture object
 
+
 cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input" # window name
-windowName2 = "JPEG compression noise" # window name
-windowNameJPEG = "JPEG compressed version" # window name
+windowName = "Live Camera Input"  # window name
+windowName2 = "JPEG compression noise"  # window name
+windowNameJPEG = "JPEG compressed version"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
 if (((args.video_file) and (cap.open(str(args.video_file))))
-    or (cap.open(args.camera_to_use))):
+        or (cap.open(args.camera_to_use))):
 
     # create window by name (note flags for resizable or not)
 
@@ -67,7 +86,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
     cv2.createTrackbar("JPEG quality", windowName2, jpeg_quality, 100, nothing)
 
     amplification = 0
-    cv2.createTrackbar("amplification", windowName2, amplification, 255, nothing)
+    cv2.createTrackbar(
+        "amplification",
+        windowName2,
+        amplification,
+        255,
+        nothing)
 
     while (keep_processing):
 
@@ -85,7 +109,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             # rescale if specified
 
             if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+                frame = cv2.resize(
+                    frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # start a timer (to see how long processing and display takes)
 
@@ -93,8 +118,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # write/compress and then read back from as JPEG
 
-        jpeg_quality = cv2.getTrackbarPos("JPEG quality",windowName2)
-        encode_param=[int(cv2.IMWRITE_JPEG_QUALITY),jpeg_quality]
+        jpeg_quality = cv2.getTrackbarPos("JPEG quality", windowName2)
+        encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality]
 
         # either via file output / input
 
@@ -112,22 +137,24 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # retrieve the amplification setting from the track bar
 
-        amplification = cv2.getTrackbarPos("amplification",windowName2)
+        amplification = cv2.getTrackbarPos("amplification", windowName2)
 
-        # multiple the result to increase the amplification (so we can see small pixel changes)
+        # multiple the result to increase the amplification (so we can see
+        # small pixel changes)
 
         amplified_diff_img = diff_img * amplification
 
         # display images
 
-        cv2.imshow(windowName,frame)
+        cv2.imshow(windowName, frame)
         cv2.imshow(windowName2, amplified_diff_img)
         cv2.imshow(windowNameJPEG, jpeg_img)
 
+        # stop the timer and convert to ms. (to see how long processing and
+        # display takes)
 
-        # stop the timer and convert to ms. (to see how long processing and display takes)
-
-        stop_t = ((cv2.getTickCount() - start_t)/cv2.getTickFrequency()) * 1000
+        stop_t = ((cv2.getTickCount() - start_t) /
+                  cv2.getTickFrequency()) * 1000
 
         # start the event loop - essential
 
@@ -136,13 +163,16 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time already used in the loop
+        # here we use a wait time in ms. that takes account of processing time
+        # already used in the loop
 
-        # wait 40ms or less depending on processing time taken (i.e. 1000ms / 25 fps = 40 ms)
+        # wait 40ms or less depending on processing time taken (i.e. 1000ms /
+        # 25 fps = 40 ms)
 
         key = cv2.waitKey(max(2, 40 - int(math.ceil(stop_t)))) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which key is pressed
+        # It can also be set to detect specific key strokes by recording which
+        # key is pressed
 
         # e.g. if user presses "x" then exit
 

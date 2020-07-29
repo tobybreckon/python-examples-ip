@@ -23,9 +23,22 @@ keep_processing = True
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
 args = parser.parse_args()
 
 video_width = 640
@@ -39,12 +52,13 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input -> Video File" # window name
+windowName = "Live Camera Input -> Video File"  # window name
 
 # define video writer (video: 640 x 480 @ 25 fps)
 
 fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
-output = cv2.VideoWriter('output.avi',fourcc, 25.0, (video_width,video_height))
+output = cv2.VideoWriter('output.avi', fourcc, 25.0,
+                         (video_width, video_height))
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -71,27 +85,33 @@ if ((cap.open("input.avi")) or (cap.open(args.camera_to_use))):
             # rescale if specified
 
             if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+                frame = cv2.resize(
+                    frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # *** do any processing here ****
 
         # write the frame to file (first resizing)
 
-        frame2 = cv2.resize(frame,(video_width, video_height), interpolation = cv2.INTER_CUBIC)
+        frame2 = cv2.resize(
+            frame,
+            (video_width,
+             video_height),
+            interpolation=cv2.INTER_CUBIC)
         output.write(frame2)
 
         # display image
 
-        cv2.imshow(windowName,frame)
+        cv2.imshow(windowName, frame)
 
         # start the event loop - essential
 
         # set cv2.waitKey() to minimum value of 1 so that the framerate is preserved
         # for writing to video file (if we set it differently we get strange
         # speeding up effects in the output, as we are specifying 25 fps playback
-        # but writing the frames at a slower rate - capture etc. takes some time).
+        # but writing the frames at a slower rate - capture etc. takes some
+        # time).
 
-        key = cv2.waitKey(1) & 0xFF # wait 1ms only
+        key = cv2.waitKey(1) & 0xFF  # wait 1ms only
 
         # e.g. if user presses "x" then exit
 

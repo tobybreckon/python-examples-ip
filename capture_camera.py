@@ -20,9 +20,22 @@ import sys
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
 args = parser.parse_args()
 
 #####################################################################
@@ -33,7 +46,7 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input" # window name
+windowName = "Live Camera Input"  # window name
 
 # open camera device (and check it worked)
 
@@ -46,7 +59,8 @@ if not(cap.open(args.camera_to_use)):
 ret, frame = cap.read()
 
 # to avoid the black/blank first frame from many cameras
-# with some (not all) cameras you need to read the first frame twice (first frame only)
+# with some (not all) cameras you need to read the first frame twice
+# (first frame only)
 
 ret, frame = cap.read()
 
@@ -60,7 +74,7 @@ if not frame is None:
 
     # display image
 
-    cv2.imshow(windowName,frame)
+    cv2.imshow(windowName, frame)
 
     # start the event loop - essential
     # wait indefinitely for any key press

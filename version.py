@@ -21,9 +21,11 @@ import matplotlib
 
 # check if the OpenCV we are using has the extra modules available
 
+
 def extraOpenCVModulesPresent():
     (is_built, not_built) = cv2.getBuildInformation().split("Disabled:")
     return ('xfeatures2d' in is_built)
+
 
 def nonFreeAlgorithmsPresent():
     (before, after) = cv2.getBuildInformation().split("Non-free algorithms:")
@@ -32,11 +34,15 @@ def nonFreeAlgorithmsPresent():
 
 #####################################################################
 
+
 print("We are using OpenCV: " + cv2.__version__)
-print(".. do we have the OpenCV Contrib Modules: " + str(extraOpenCVModulesPresent()))
-print(".. do we have the OpenCV Non-free algorithms: " + str(nonFreeAlgorithmsPresent()))
+print(".. do we have the OpenCV Contrib Modules: " +
+      str(extraOpenCVModulesPresent()))
+print(".. do we have the OpenCV Non-free algorithms: " +
+      str(nonFreeAlgorithmsPresent()))
 print("We are using numpy: " + np.__version__)
 print("We are using matplotlib: " + matplotlib.__version__)
-print(".. and this is in Python: " + sys.version + " (" + str(struct.calcsize("P") * 8) + " bit)")
+print(".. and this is in Python: " + sys.version +
+      " (" + str(struct.calcsize("P") * 8) + " bit)")
 
 #####################################################################

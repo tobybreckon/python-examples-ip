@@ -1,6 +1,7 @@
 #####################################################################
 
-# Example : gaussian and bi-lateral filtering on an image from an attached web camera
+# Example : gaussian and bi-lateral filtering on an image from an attached
+# web camera
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
@@ -22,10 +23,28 @@ keep_processing = True
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
-parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
+parser.add_argument(
+    'video_file',
+    metavar='video_file',
+    type=str,
+    nargs='?',
+    help='specify optional video file')
 args = parser.parse_args()
 
 
@@ -41,13 +60,14 @@ def nothing(x):
 
 # define video capture object
 
+
 cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input" # window name
-windowName2 = "Gaussian Smoothing" # window name
-windowName3 = "Bilaterial Filtering" # window name
+windowName = "Live Camera Input"  # window name
+windowName2 = "Gaussian Smoothing"  # window name
+windowName3 = "Bilaterial Filtering"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -63,7 +83,12 @@ if cap.open(args.camera_to_use):
     # add some track bar controllers for settings Gaussian smoothing
 
     neighbourhood = 3
-    cv2.createTrackbar("neighbourhood, N", windowName2, neighbourhood, 40, nothing)
+    cv2.createTrackbar(
+        "neighbourhood, N",
+        windowName2,
+        neighbourhood,
+        40,
+        nothing)
     sigma = 1
     cv2.createTrackbar("sigma", windowName2, sigma, 10, nothing)
 
@@ -90,7 +115,8 @@ if cap.open(args.camera_to_use):
             # rescale if specified
 
             if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+                frame = cv2.resize(
+                    frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # get parameter from track bars - Gaussian
 
@@ -110,11 +136,19 @@ if cap.open(args.camera_to_use):
 
         # perform Gaussian smoothing using NxN neighbourhood
 
-        smoothed_img = cv2.GaussianBlur(frame, (neighbourhood, neighbourhood), sigma, sigma, borderType=cv2.BORDER_REPLICATE)
+        smoothed_img = cv2.GaussianBlur(
+            frame,
+            (neighbourhood,
+             neighbourhood),
+            sigma,
+            sigma,
+            borderType=cv2.BORDER_REPLICATE)
 
-        # perform bilateral filtering using a neighbourhood calculated automatically from sigmaS
+        # perform bilateral filtering using a neighbourhood calculated
+        # automatically from sigmaS
 
-        filtered_img = cv2.bilateralFilter(frame, -1, sigmaR, sigmaS, borderType=cv2.BORDER_REPLICATE)
+        filtered_img = cv2.bilateralFilter(
+            frame, -1, sigmaR, sigmaS, borderType=cv2.BORDER_REPLICATE)
 
         # display image
 
@@ -130,9 +164,11 @@ if cap.open(args.camera_to_use):
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which key is pressed
+        # It can also be set to detect specific key strokes by recording which
+        # key is pressed
 
         # e.g. if user presses "x" then exit
 

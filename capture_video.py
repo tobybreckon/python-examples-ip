@@ -25,9 +25,22 @@ keep_processing = True
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
 args = parser.parse_args()
 
 #####################################################################
@@ -38,7 +51,7 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input" # window name
+windowName = "Live Camera Input"  # window name
 
 # if file is present try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -65,13 +78,14 @@ if ((cap.open("video.avi")) or (cap.open(args.camera_to_use))):
             # rescale if specified
 
             if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+                frame = cv2.resize(
+                    frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         # *** do any processing here ****
 
         # display image
 
-        cv2.imshow(windowName,frame)
+        cv2.imshow(windowName, frame)
 
         # start the event loop - essential
 
@@ -81,9 +95,11 @@ if ((cap.open("video.avi")) or (cap.open(args.camera_to_use))):
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        key = cv2.waitKey(40) & 0xFF # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(40) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which key is pressed
+        # It can also be set to detect specific key strokes by recording which
+        # key is pressed
 
         # e.g. if user presses "x" then exit
 

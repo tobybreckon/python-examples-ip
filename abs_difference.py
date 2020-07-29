@@ -23,10 +23,28 @@ keep_processing = True
 
 # parse command line arguments for camera ID or video file
 
-parser = argparse.ArgumentParser(description='Perform ' + sys.argv[0] + ' example operation on incoming camera/video image')
-parser.add_argument("-c", "--camera_to_use", type=int, help="specify camera to use", default=0)
-parser.add_argument("-r", "--rescale", type=float, help="rescale image by this factor", default=1.0)
-parser.add_argument('video_file', metavar='video_file', type=str, nargs='?', help='specify optional video file')
+parser = argparse.ArgumentParser(
+    description='Perform ' +
+    sys.argv[0] +
+    ' example operation on incoming camera/video image')
+parser.add_argument(
+    "-c",
+    "--camera_to_use",
+    type=int,
+    help="specify camera to use",
+    default=0)
+parser.add_argument(
+    "-r",
+    "--rescale",
+    type=float,
+    help="rescale image by this factor",
+    default=1.0)
+parser.add_argument(
+    'video_file',
+    metavar='video_file',
+    type=str,
+    nargs='?',
+    help='specify optional video file')
 args = parser.parse_args()
 use_greyscale = False
 
@@ -43,18 +61,19 @@ def nothing(x):
 
 # define video capture object
 
+
 cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input" # window name
-windowName2 = "Difference Image" # window name
+windowName = "Live Camera Input"  # window name
+windowName2 = "Difference Image"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
 if (((args.video_file) and (cap.open(str(args.video_file))))
-    or (cap.open(args.camera_to_use))):
+        or (cap.open(args.camera_to_use))):
 
     # create windows by name (as resizable)
 
@@ -75,12 +94,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
     # if video file or camera successfully open then read frame from video
 
     if (cap.isOpened):
-            ret, frame = cap.read()
+        ret, frame = cap.read()
 
-            # rescale if specified
+        # rescale if specified
 
-            if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+        if (args.rescale != 1.0):
+            frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
     # make a deep copy of this (as all camera frames otherwise reside
     # in the same portion of allocated memory)
@@ -103,7 +122,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             # rescale if specified
 
             if (args.rescale != 1.0):
-                frame = cv2.resize(frame, (0, 0), fx=args.rescale, fy=args.rescale)
+                frame = cv2.resize(
+                    frame, (0, 0), fx=args.rescale, fy=args.rescale)
 
         if (use_greyscale):
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -118,9 +138,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # retrieve the contrast setting from the track bar
 
-        contrast = cv2.getTrackbarPos("contrast",windowName2)
+        contrast = cv2.getTrackbarPos("contrast", windowName2)
 
-        # multiple the result to increase the contrast (so we can see small pixel changes)
+        # multiple the result to increase the contrast (so we can see small
+        # pixel changes)
 
         brightened_img = diff_img * contrast
 
@@ -130,14 +151,16 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # threshold the image if its in grayscale and we have a valid threshold
 
-        threshold = cv2.getTrackbarPos("threshold",windowName2)
+        threshold = cv2.getTrackbarPos("threshold", windowName2)
 
         if (use_greyscale and (threshold > 0)):
 
             # display thresholded image if threshold > 0
-            # thresholding : if pixel > (threshold value) set to 255 (white), otherwise set to 0 (black)
+            # thresholding : if pixel > (threshold value) set to 255 (white),
+            # otherwise set to 0 (black)
 
-            ret, thresholded_img = cv2.threshold(brightened_img, 127, 255, cv2.THRESH_BINARY)
+            ret, thresholded_img = cv2.threshold(
+                brightened_img, 127, 255, cv2.THRESH_BINARY)
             cv2.imshow(windowName2, thresholded_img)
         else:
             # otherwise just display the non-thresholded one
@@ -152,10 +175,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # If 0 is passed, it waits indefinitely for a key stroke.
         # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
 
-        fps = cv2.getTrackbarPos("fps",windowName2)
-        key = cv2.waitKey(int(1000 / max(1,fps))) & 0xFF # wait T ms (i.e. 1000ms / 25 fps = 40 ms)
+        fps = cv2.getTrackbarPos("fps", windowName2)
+        # wait T ms (i.e. 1000ms / 25 fps = 40 ms)
+        key = cv2.waitKey(int(1000 / max(1, fps))) & 0xFF
 
-        # It can also be set to detect specific key strokes by recording which key is pressed
+        # It can also be set to detect specific key strokes by recording which
+        # key is pressed
 
         # e.g. if user presses "x" then exit
 
@@ -171,7 +196,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             # if the previous frame we stored also has 3 channels (colour)
             if (len(prev_frame.shape) != 3):
                 # convert it to just copying the gray information to all of the
-                # three channels (this is a hack), otherwise absdiff() will break
+                # three channels (this is a hack), otherwise absdiff() will
+                # break
                 prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_GRAY2BGR)
         else:
 
