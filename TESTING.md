@@ -32,12 +32,12 @@ We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
 
 Check Video I/O (OS identifier: MMM)
-Available camera backends:  LLL
-Available stream backends:  LLL
-Available video writer backends: LLL
+... available camera backends:  LLL
+... available stream backends:  LLL
+... available video writer backends: LLL
 
 Available Cuda Information:
-['NVIDIA CUDA: YES (ver NNN, ???)', 'NVIDIA GPU arch: ???', 'NVIDIA PTX archs: ZZZ']
+... ['NVIDIA CUDA: YES (ver NNN, ???)', 'NVIDIA GPU arch: ???', 'NVIDIA PTX archs: ZZZ']
 
 OpenCL available (within OpenCV) ? : True
 

@@ -50,15 +50,15 @@ print(".. and this is in Python: " + sys.version +
 
 print()
 print("Check Video I/O (OS identifier: " + sys.platform + ")")
-print("Available camera backends: ", end='')
+print("... available camera backends: ", end='')
 for backend in cv2.videoio_registry.getCameraBackends():
     print(" " + cv2.videoio_registry.getBackendName(backend), end='')
 print()
-print("Available stream backends: ", end='')
+print("... available stream backends: ", end='')
 for backend in cv2.videoio_registry.getStreamBackends():
     print(" " + cv2.videoio_registry.getBackendName(backend), end='')
 print()
-print("Available video writer backends: ", end='')
+print("... available video writer backends: ", end='')
 for backend in cv2.videoio_registry.getWriterBackends():
     print(" " + cv2.videoio_registry.getBackendName(backend), end='')
 print()
@@ -73,7 +73,7 @@ cuda_info = [re.sub('\s+', ' ', ci.strip()) for ci in \
             cv2.getBuildInformation().strip().split('\n') \
             if len(ci) > 0 and re.search(r'(nvidia*:?)|(cuda*:)|(cudnn*:)', \
             ci.lower()) is not None]
-print(cuda_info)
+print("... " + str(cuda_info))
 print()
 
 print("OpenCL available (within OpenCV) ? : " + str(cv2.ocl.haveOpenCL()))
