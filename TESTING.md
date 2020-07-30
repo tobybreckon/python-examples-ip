@@ -42,7 +42,7 @@ Available Cuda Information:
 OpenCL available (within OpenCV) ? : True
 
 ```
-- such that CCC >= 4.3.x (or higher), PPP > 3.x, MMM is sensible for the OS in use, each of the LLL list are sensible (may not all be identical) and ideally include FFMPEG + GSTREAMER in addition to V4L/V4L (for XXX = linux*), QT (for XXX = darwin) or DSHOW / MSMF (for XXX = win*), NNN > 10.x, ZZZ includes cuDNN and ??? = (doesn't matter).
+- such that CCC >= 4.3.x (or higher), PPP > 3.x, MMM is sensible for the OS in use, each of the LLL list are sensible (may not all be identical) and ideally include FFMPEG + GSTREAMER in addition to V4L/V4L (for MMM = linux*), QT (for MMM = darwin) or DSHOW / MSMF (for MMM = win*), NNN > 10.x, ZZZ includes cuDNN and ??? = (doesn't matter).
 
 [ N.B. to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
