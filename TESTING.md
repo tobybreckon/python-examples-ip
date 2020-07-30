@@ -30,10 +30,21 @@ We are using OpenCV: CCC
 We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
-```
-- such that CCC >= 4.3.x (or higher) PPP > 3.x ??? = (doesn't matter).
 
-[ to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
+Check Video I/O (OS identifier: MMM)
+Available camera backends:  LLL
+Available stream backends:  LLL
+Available video writer backends: LLL
+
+Available Cuda Information:
+['NVIDIA CUDA: YES (ver NNN, ???)', 'NVIDIA GPU arch: ???', 'NVIDIA PTX archs: ZZZ']
+
+OpenCL available (within OpenCV) ? : True
+
+```
+- such that CCC >= 4.3.x (or higher), PPP > 3.x, MMM is sensible for the OS in use, each of the LLL list are sensible (may not all be identical) and ideally include FFMPEG + GSTREAMER in addition to V4L/V4L (for XXX = linux*), QT (for XXX = darwin) or DSHOW / MSMF (for XXX = win*), NNN > 10.x, ZZZ includes cuDNN and ??? = (doesn't matter).
+
+[ N.B. to build with Non-free algorithms set OPENCV_ENABLE_NONFREE=TRUE in CMake ]
 
 ---
 
