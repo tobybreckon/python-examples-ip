@@ -6,7 +6,7 @@
 
 # Author : <NAME>, <EMAIL>@durham.ac.uk
 
-# Copyright (c) 2015 <YOUR NAME>
+# Copyright (c) 20xx <YOUR NAME>
 #                    Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
@@ -55,7 +55,7 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
+window_name = "Live Camera Input"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -65,7 +65,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
@@ -98,7 +98,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # stop the timer and convert to ms. (to see how long processing and
         # display takes)
@@ -108,13 +108,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time
-        # already used in the loop
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms /
         # 25 fps = 40 ms)
