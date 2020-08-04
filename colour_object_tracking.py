@@ -104,9 +104,9 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Hue histogram back projection"  # window name
-windowNameSelection = "selected"
+window_name = "Live Camera Input"  # window name
+window_name2 = "Hue histogram back projection"  # window name
+window_name_selection = "selected"
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -116,24 +116,24 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowNameSelection, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name_selection, cv2.WINDOW_NORMAL)
 
     # set sliders for HSV selection thresholds
 
     s_lower = 60
-    cv2.createTrackbar("s lower", windowName2, s_lower, 255, nothing)
+    cv2.createTrackbar("s lower", window_name2, s_lower, 255, nothing)
     s_upper = 255
-    cv2.createTrackbar("s upper", windowName2, s_upper, 255, nothing)
+    cv2.createTrackbar("s upper", window_name2, s_upper, 255, nothing)
     v_lower = 32
-    cv2.createTrackbar("v lower", windowName2, v_lower, 255, nothing)
+    cv2.createTrackbar("v lower", window_name2, v_lower, 255, nothing)
     v_upper = 255
-    cv2.createTrackbar("v upper", windowName2, v_upper, 255, nothing)
+    cv2.createTrackbar("v upper", window_name2, v_upper, 255, nothing)
 
     # set a mouse callback
 
-    cv2.setMouseCallback(windowName, on_mouse, 0)
+    cv2.setMouseCallback(window_name, on_mouse, 0)
     cropped = False
 
     # Setup the termination criteria for search, either 10 iteration or
@@ -165,10 +165,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        s_lower = cv2.getTrackbarPos("s lower", windowName2)
-        s_upper = cv2.getTrackbarPos("s upper", windowName2)
-        v_lower = cv2.getTrackbarPos("v lower", windowName2)
-        v_upper = cv2.getTrackbarPos("v upper", windowName2)
+        s_lower = cv2.getTrackbarPos("s lower", window_name2)
+        s_upper = cv2.getTrackbarPos("s upper", window_name2)
+        v_lower = cv2.getTrackbarPos("v lower", window_name2)
+        v_upper = cv2.getTrackbarPos("v upper", window_name2)
 
         # select region using the mouse and display it
 
@@ -185,15 +185,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
                 hsv_crop = cv2.cvtColor(crop, cv2.COLOR_BGR2HSV)
 
-                # select all Hue (0-> 180) and Sat. values but eliminate values with very low
-                # saturation or value (due to lack of useful colour
-                # information)
+                # select all Hue (0-> 180) and Sat. values but eliminate values
+                # with very low saturation or value (due to lack of useful
+                # colour information)
 
                 mask = cv2.inRange(
                     hsv_crop, np.array(
                         (0., float(s_lower), float(v_lower))), np.array(
                         (180., float(s_upper), float(v_upper))))
-                # mask = cv2.inRange(hsv_crop, np.array((0., 60.,32.)), np.array((180.,255.,255.)))
 
                 # construct a histogram of hue and saturation values and
                 # normalize it
@@ -215,7 +214,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
                     boxes[1][1] -
                     boxes[0][1])
 
-                cv2.imshow(windowNameSelection, crop)
+                cv2.imshow(window_name_selection, crop)
 
             # reset list of boxes
 
@@ -242,10 +241,9 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
                 [img_hsv], [
                     0, 1], crop_hist, [
                     0, 180, 0, 255], 1)
-            cv2.imshow(windowName2, img_bproject)
+            cv2.imshow(window_name2, img_bproject)
 
             # apply meanshift to get the new location
-            #ret, track_window = cv2.CamShift(img_bproject, track_window, term_crit)
             ret, track_window = cv2.meanShift(
                 img_bproject, track_window, term_crit)
 
@@ -261,19 +259,19 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
             img_hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-            # select all Hue values (0-> 180) but eliminate values with very low
-            # saturation or value (due to lack of useful colour information)
+            # select all Hue values (0-> 180) but eliminate values with very
+            # low saturation or value (due to lack of useful colour info.)
 
             mask = cv2.inRange(
                 img_hsv, np.array(
                     (0., float(s_lower), float(v_lower))), np.array(
                     (180., float(s_upper), float(v_upper))))
 
-            cv2.imshow(windowName2, mask)
+            cv2.imshow(window_name2, mask)
 
         # display image
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # stop the timer and convert to ms. (to see how long processing and
         # display takes)
@@ -283,13 +281,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time
-        # already used in the loop
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms /
         # 25 fps = 40 ms)
