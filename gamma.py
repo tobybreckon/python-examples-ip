@@ -14,7 +14,6 @@
 
 import cv2
 import argparse
-import math
 import sys
 import numpy as np
 
@@ -60,20 +59,20 @@ def nothing(x):
 #####################################################################
 
 # power law transform
-# I - colour image I
+# image - colour image
 # gamma - "gradient" co-efficient of gamma function
 
 
-def powerlaw_transform(I, gamma):
+def powerlaw_transform(image, gamma):
 
     # compute power-law transform
     # remembering not defined for pixel = 0 (!)
 
     # handle any overflow in a quick and dirty way using 0-255 clipping
 
-    I = np.clip(np.power(I, gamma), 0, 255).astype('uint8')
+    image = np.clip(np.power(image, gamma), 0, 255).astype('uint8')
 
-    return I
+    return image
 
 #####################################################################
 
@@ -84,8 +83,8 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Gamma Corrected (Power-Law Transform)"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Gamma Corrected (Power-Law Transform)"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -95,14 +94,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name2, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
     gamma = 100  # default gamma - no change
 
-    cv2.createTrackbar("gamma, (* 0.01)", windowName2, gamma, 500, nothing)
+    cv2.createTrackbar("gamma, (* 0.01)", window_name2, gamma, 500, nothing)
 
     while (keep_processing):
 
@@ -125,7 +124,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        gamma = cv2.getTrackbarPos("gamma, (* 0.01)", windowName2) * 0.01
+        gamma = cv2.getTrackbarPos("gamma, (* 0.01)", window_name2) * 0.01
 
         # make a copy
 
@@ -137,16 +136,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName, frame)
-        cv2.imshow(windowName2, gamma_img)
+        cv2.imshow(window_name, frame)
+        cv2.imshow(window_name2, gamma_img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
