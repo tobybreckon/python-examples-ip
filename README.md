@@ -3,6 +3,8 @@
 OpenCV Python image processing examples used for teaching within the undergraduate Computer Science programme
 at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
 
+![Python - PEP8](https://github.com/tobybreckon/python-examples-ip/workflows/Python%20-%20PEP8/badge.svg)
+
 All tested with [OpenCV](http://www.opencv.org) 3.x / 4.x and Python 3.x.
 
 ```
@@ -56,8 +58,7 @@ cd python-examples-ip
 python3 ./<insert file name of one of the examples>.py [optional video file]
 ```
 
-An extremely simple example to check if OpenCV and the other python libraries commonly needed by these examples are present/working
-on your system and which version of them is in use, is the _version.py_ example:
+An extremely simple example to check if OpenCV and the other python libraries commonly needed by these examples are present/working on your system and which version of them is in use, is the _version.py_ example:
 
 ```
 python3 ./version.py
