@@ -10,7 +10,6 @@
 
 #####################################################################
 
-import numpy as np
 import cv2
 
 #####################################################################
@@ -39,7 +38,7 @@ def colour_query_mouse_callback(event, x, y, flags, param):
 
 # define display window name
 
-windowName = "Displayed Image"  # window name
+window_name = "Displayed Image"  # window name
 
 # read an image from the specified file (in colour)
 
@@ -47,16 +46,16 @@ img = cv2.imread('example.jpg', cv2.IMREAD_COLOR)
 
 # check it has loaded
 
-if not img is None:
+if img is not None:
 
     # create a named window object
 
-    cv2.namedWindow(windowName)
+    cv2.namedWindow(window_name)
 
     # set the mouse call back function that will be called every time
     # the mouse is clicked inside the associated window
 
-    cv2.setMouseCallback(windowName, colour_query_mouse_callback)
+    cv2.setMouseCallback(window_name, colour_query_mouse_callback)
 
     # set a loop control flag
 
@@ -66,15 +65,16 @@ if not img is None:
 
         # display this blurred image in a named window
 
-        cv2.imshow(windowName, img)
+        cv2.imshow(window_name, img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
