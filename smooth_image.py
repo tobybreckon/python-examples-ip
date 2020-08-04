@@ -10,9 +10,7 @@
 
 #####################################################################
 
-import numpy as np
 import cv2
-import argparse
 
 #####################################################################
 
@@ -39,12 +37,12 @@ if img is not None:
 
     # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in
-        # ms). It waits for specified milliseconds for any keyboard event.
-        # If you press any key in that time, the program continues.
-        # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of
-        # multi-byte response)
+    # cv2.waitKey() is a keyboard binding function (argument is the time in
+    # ms). It waits for specified milliseconds for any keyboard event.
+    # If you press any key in that time, the program continues.
+    # If 0 is passed, it waits indefinitely for a key stroke.
+    # (bitwise and with 0xFF to extract least significant byte of
+    # multi-byte response)
 
     key = cv2.waitKey(0) & 0xFF  # wait
 
