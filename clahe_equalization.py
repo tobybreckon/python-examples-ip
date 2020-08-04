@@ -1,8 +1,8 @@
 #####################################################################
 
-# Example : perform contrast limited histogram equalization (CLAHE) from a video file
-# specified on the command line (e.g. python FILE.py video_file) or from an
-# attached web camera
+# Example : perform contrast limited histogram equalization (CLAHE)
+# from a video filespecified on the command line (e.g. python FILE.py
+# video_file) or from an attached web camera
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
@@ -48,13 +48,13 @@ parser.add_argument(
     help='specify optional video file')
 args = parser.parse_args()
 
-
 #####################################################################
 
 # basic grayscale histogram drawing in raw OpenCV using lines
 
 # adapted from:
 # https://raw.githubusercontent.com/Itseez/opencv/master/samples/python2/hist.py
+
 
 def hist_lines(hist):
     h = np.ones((300, 256, 3)) * 255  # white background
@@ -83,10 +83,10 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName1 = "Live Camera Input"  # window name
-windowName2 = "Input Histogram"  # window name
-windowName3 = "Processed Output"  # window name
-windowName4 = "Output Histogram"  # window name
+window_name1 = "Live Camera Input"  # window name
+window_name2 = "Input Histogram"  # window name
+window_name3 = "Processed Output"  # window name
+window_name4 = "Output Histogram"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -96,17 +96,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName1, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName4, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name1, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name3, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name4, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
     clip_limit = 2
-    cv2.createTrackbar("clip limit", windowName4, clip_limit, 25, nothing)
+    cv2.createTrackbar("clip limit", window_name4, clip_limit, 25, nothing)
     tile_size = 8
-    cv2.createTrackbar("tile size", windowName4, tile_size, 64, nothing)
+    cv2.createTrackbar("tile size", window_name4, tile_size, 64, nothing)
 
     while (keep_processing):
 
@@ -137,8 +137,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        clip_limit = cv2.getTrackbarPos("clip limit", windowName4)
-        tile_size = cv2.getTrackbarPos("tile size", windowName4)
+        clip_limit = cv2.getTrackbarPos("clip limit", window_name4)
+        tile_size = cv2.getTrackbarPos("tile size", window_name4)
 
         # perform filtering
 
@@ -149,26 +149,27 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName1, gray_img)
+        cv2.imshow(window_name1, gray_img)
         cv2.imshow(
-            windowName2, hist_lines(
+            window_name2, hist_lines(
                 cv2.calcHist(
                     [gray_img], [0], None, [256], [
                         0, 256])))
-        cv2.imshow(windowName3, output)
+        cv2.imshow(window_name3, output)
         cv2.imshow(
-            windowName4, hist_lines(
+            window_name4, hist_lines(
                 cv2.calcHist(
                     [output], [0], None, [256], [
                         0, 256])))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
