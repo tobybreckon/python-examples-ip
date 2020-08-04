@@ -11,7 +11,6 @@
 
 #####################################################################
 
-import numpy as np
 import cv2
 import argparse
 import sys
@@ -46,7 +45,7 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
+window_name = "Live Camera Input"  # window name
 
 # open camera device (and check it worked)
 
@@ -66,15 +65,15 @@ ret, frame = cap.read()
 
 # check it has loaded
 
-if not frame is None:
+if frame is not None:
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
     # display image
 
-    cv2.imshow(windowName, frame)
+    cv2.imshow(window_name, frame)
 
     # start the event loop - essential
     # wait indefinitely for any key press
