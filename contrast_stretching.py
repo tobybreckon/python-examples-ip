@@ -74,10 +74,10 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName1 = "Live Camera Input"  # window name
-windowName2 = "Input Histogram"  # window name
-windowName3 = "Processed Output"  # window name
-windowName4 = "Output Histogram"  # window name
+window_name1 = "Live Camera Input"  # window name
+window_name2 = "Input Histogram"  # window name
+window_name3 = "Processed Output"  # window name
+window_name4 = "Output Histogram"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -87,10 +87,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName1, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName4, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name1, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name3, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name4, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
@@ -133,26 +133,27 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName1, gray_img)
+        cv2.imshow(window_name1, gray_img)
         cv2.imshow(
-            windowName2, hist_lines(
+            window_name2, hist_lines(
                 cv2.calcHist(
                     [gray_img], [0], None, [256], [
                         0, 256])))
-        cv2.imshow(windowName3, output)
+        cv2.imshow(window_name3, output)
         cv2.imshow(
-            windowName4, hist_lines(
+            window_name4, hist_lines(
                 cv2.calcHist(
                     [output], [0], None, [256], [
                         0, 256])))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
