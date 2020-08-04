@@ -16,7 +16,7 @@ VIDEO_TO_TEST=video.avi
 
 echo
 echo Using $PYTHON_INTERPRETATOR with camera $CAM_TO_TEST and video $VIDEO_TO_TEST
-echo "Running test suite - press 'x' in OpenCV window to exist each example."
+echo "Running test suite - press 'x' in OpenCV window to exit each example."
 echo
 
 # get testing resouces if they do not exist
