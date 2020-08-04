@@ -66,9 +66,9 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "JPEG compression noise"  # window name
-windowNameJPEG = "JPEG compressed version"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "JPEG compression noise"  # window name
+window_name_jpeg = "JPEG compressed version"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -78,17 +78,18 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowNameJPEG, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name_jpeg, cv2.WINDOW_NORMAL)
 
     jpeg_quality = 90
-    cv2.createTrackbar("JPEG quality", windowName2, jpeg_quality, 100, nothing)
+    cv2.createTrackbar("JPEG quality",
+                       window_name2, jpeg_quality, 100, nothing)
 
     amplification = 0
     cv2.createTrackbar(
         "amplification",
-        windowName2,
+        window_name2,
         amplification,
         255,
         nothing)
@@ -118,7 +119,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # write/compress and then read back from as JPEG
 
-        jpeg_quality = cv2.getTrackbarPos("JPEG quality", windowName2)
+        jpeg_quality = cv2.getTrackbarPos("JPEG quality", window_name2)
         encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), jpeg_quality]
 
         # either via file output / input
@@ -137,7 +138,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # retrieve the amplification setting from the track bar
 
-        amplification = cv2.getTrackbarPos("amplification", windowName2)
+        amplification = cv2.getTrackbarPos("amplification", window_name2)
 
         # multiple the result to increase the amplification (so we can see
         # small pixel changes)
@@ -146,9 +147,9 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, frame)
-        cv2.imshow(windowName2, amplified_diff_img)
-        cv2.imshow(windowNameJPEG, jpeg_img)
+        cv2.imshow(window_name, frame)
+        cv2.imshow(window_name2, amplified_diff_img)
+        cv2.imshow(window_name_jpeg, jpeg_img)
 
         # stop the timer and convert to ms. (to see how long processing and
         # display takes)
@@ -158,13 +159,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time
-        # already used in the loop
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms /
         # 25 fps = 40 ms)
