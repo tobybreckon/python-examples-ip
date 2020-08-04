@@ -18,7 +18,7 @@ import argparse
 
 # define display window name
 
-windowName = "Smoothed Image"  # window name
+window_name = "Smoothed Image"  # window name
 
 # read an image from the specified file (in colour)
 
@@ -26,7 +26,7 @@ img = cv2.imread('example.jpg', cv2.IMREAD_COLOR)
 
 # check it has loaded
 
-if not img is None:
+if img is not None:
 
     # performing smoothing on the image using a 5x5 smoothing mark (see manual
     # entry for GaussianBlur())
@@ -35,14 +35,16 @@ if not img is None:
 
     # display this blurred image in a named window
 
-    cv2.imshow(windowName, blur)
+    cv2.imshow(window_name, blur)
 
     # start the event loop - essential
 
-    # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-    # It waits for specified milliseconds for any keyboard event.
-    # If you press any key in that time, the program continues.
-    # If 0 is passed, it waits indefinitely for a key stroke.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
+        # If you press any key in that time, the program continues.
+        # If 0 is passed, it waits indefinitely for a key stroke.
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
     key = cv2.waitKey(0) & 0xFF  # wait
 
