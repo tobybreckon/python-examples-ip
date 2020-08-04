@@ -15,7 +15,6 @@
 import cv2
 import sys
 import argparse
-import math
 
 #####################################################################
 
@@ -90,8 +89,9 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         neighbourhood,
         25,
         nothing)
-    searchW = 21
-    cv2.createTrackbar("search area, W", window_name3, searchW, 50, nothing)
+    search_window = 21
+    cv2.createTrackbar("search area, W", window_name3,
+                       search_window, 50, nothing)
     filter_strength = 10
     cv2.createTrackbar(
         "strength, h",
@@ -122,7 +122,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # get parameters from track bars
 
         neighbourhood = cv2.getTrackbarPos("neighbourhood, N", window_name2)
-        searchW = cv2.getTrackbarPos("search area, W", window_name3)
+        search_window = cv2.getTrackbarPos("search area, W", window_name3)
         filter_strength = cv2.getTrackbarPos("strength, h", window_name3)
 
         # check neighbourhood is greater than 3 and odd
@@ -147,7 +147,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             h=filter_strength,
             hColor=10,
             templateWindowSize=neighbourhood,
-            searchWindowSize=searchW)
+            search_windowindowSize=search_window)
 
         # display image
 
