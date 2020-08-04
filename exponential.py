@@ -58,19 +58,19 @@ def nothing(x):
 #####################################################################
 
 # exponential transform
-# I - greyscale image I
-# C - scaling constant
+# image - greyscale image
+# c - scaling constant
 # alpha - "gradient" co-efficient of exponential function
 
 
-def exponential_transform(I, C, alpha):
-    for i in range(0, I.shape[1]):  # image width
-        for j in range(0, I.shape[0]):  # image height
+def exponential_transform(image, c, alpha):
+    for i in range(0, image.shape[1]):  # image width
+        for j in range(0, image.shape[0]):  # image height
 
             # compute exponential transform
 
-            I[j, i] = int(C * (math.pow(1 + alpha, I[j, i]) - 1))
-    return I
+            image[j, i] = int(c * (math.pow(1 + alpha, image[j, i]) - 1))
+    return image
 
 #####################################################################
 
@@ -81,8 +81,8 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Exponential Transform"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Exponential Transform"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -92,16 +92,16 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
     constant = 10
-    cv2.createTrackbar("constant, C", windowName2, constant, 100, nothing)
+    cv2.createTrackbar("constant, C", window_name2, constant, 100, nothing)
 
     alpha = 10
-    cv2.createTrackbar("alpha (*0.001)", windowName2, alpha, 50, nothing)
+    cv2.createTrackbar("alpha (*0.001)", window_name2, alpha, 50, nothing)
 
     while (keep_processing):
 
@@ -128,8 +128,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        constant = cv2.getTrackbarPos("constant, C", windowName2)
-        alpha = cv2.getTrackbarPos("alpha (*0.001)", windowName2) * 0.001
+        constant = cv2.getTrackbarPos("constant, C", window_name2)
+        alpha = cv2.getTrackbarPos("alpha (*0.001)", window_name2) * 0.001
 
         # make a copy and exp tranform it
 
@@ -138,16 +138,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName, gray_img)
-        cv2.imshow(windowName2, exp_img)
+        cv2.imshow(window_name, gray_img)
+        cv2.imshow(window_name2, exp_img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
