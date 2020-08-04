@@ -63,7 +63,7 @@ recompute_filter = True
 # create a butterworth high pass filter
 
 
-def create_butterworth_high_pass_filter(width, height, D, n):
+def create_butterworth_high_pass_filter(width, height, d, n):
     hp_filter = np.zeros((height, width, 2), np.float32)
     centre = (width / 2, height / 2)
 
@@ -83,7 +83,7 @@ def create_butterworth_high_pass_filter(width, height, D, n):
                         (j -
                          centre[1]),
                         2.0)))
-            hp_filter[j, i] = 1 / (1 + math.pow((D / radius), (2 * n)))
+            hp_filter[j, i] = 1 / (1 + math.pow((d / radius), (2 * n)))
 
     return hp_filter
 
@@ -107,10 +107,10 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Fourier Magnitude Spectrum"  # window name
-windowName3 = "Filtered Image"  # window name
-windowName4 = "Butterworth Filter"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Fourier Magnitude Spectrum"  # window name
+window_name3 = "Filtered Image"  # window name
+window_name4 = "Butterworth Filter"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -120,24 +120,24 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName4, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name3, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name4, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
     radius = 5
     cv2.createTrackbar(
         "radius",
-        windowName4,
+        window_name4,
         radius,
         400,
         reset_butterworth_filter)
     order = 1
     cv2.createTrackbar(
         "order",
-        windowName4,
+        window_name4,
         order,
         10,
         reset_butterworth_filter)
@@ -191,14 +191,16 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # stretch input image so that input and output match
 
-        minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(gray_frame[:, :])
+        min_val, max_val, min_loc, max_loc = cv2.minmax_loc(gray_frame[:, :])
         gray_frame_float = np.float32(
-            gray_frame[:, :]) * (1.0 / (maxVal - minVal)) + ((-minVal) / (maxVal - minVal))
+            gray_frame[:, :]) * (1.0 / (max_val - min_val)) \
+            + ((-min_val) / (max_val - min_val))
         gray_frame = np.uint8(gray_frame_float * 255)
 
-        # Performance of DFT calculation, via the FFT, is better for array sizes of power of two.
-        # Arrays whose size is a product of 2's, 3's, and 5's are also processed quite efficiently.
-        # Hence ee modify the size of the array tothe optimal size (by padding
+        # Performance of DFT calculation, via the FFT, is better for array
+        # sizes of power of two. Arrays whose size is a product of
+        # 2's, 3's, and 5's are also processed quite efficiently.
+        # Hence we modify the size of the array to the optimal size (by padding
         # zeros) before finding DFT.
 
         pad_right = nwidth - width
@@ -223,8 +225,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # perform high pass filtering
 
-        radius = cv2.getTrackbarPos("radius", windowName4)
-        order = cv2.getTrackbarPos("order", windowName4)
+        radius = cv2.getTrackbarPos("radius", window_name4)
+        order = cv2.getTrackbarPos("order", window_name4)
 
         # butterworth is slow to construct so only do it when needed (i.e.
         # trackbar changes)
@@ -247,9 +249,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # normalized the filtered image into 0 -> 255 (8-bit grayscale) so we
         # can see the output
 
-        minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(filtered_img[:, :, 0])
+        min_val, max_val, min_loc, max_loc = \
+            cv2.minmax_loc(filtered_img[:, :, 0])
         filtered_img_normalized = filtered_img[:, :, 0] * (
-            1.0 / (maxVal - minVal)) + ((-minVal) / (maxVal - minVal))
+            1.0 / (max_val - min_val)) + ((-min_val) / (max_val - min_val))
         filtered_img_normalized = np.uint8(filtered_img_normalized * 255)
 
         # calculate the magnitude spectrum and log transform + scale it for
@@ -275,10 +278,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, gray_frame)
-        cv2.imshow(windowName2, magnitude_spectrum_normalized)
-        cv2.imshow(windowName3, filtered_img_normalized)
-        cv2.imshow(windowName4, hp_filter[:, :, 0] * 255)
+        cv2.imshow(window_name, gray_frame)
+        cv2.imshow(window_name2, magnitude_spectrum_normalized)
+        cv2.imshow(window_name3, filtered_img_normalized)
+        cv2.imshow(window_name4, hp_filter[:, :, 0] * 255)
 
         # stop timer and convert to ms. (to see how long processing and display
         # takes)
@@ -288,11 +291,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # here we use a wait time in ms. that takes account of processing time
         # already used in the loop

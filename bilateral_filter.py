@@ -15,7 +15,6 @@
 import cv2
 import sys
 import argparse
-import math
 
 #####################################################################
 
@@ -65,9 +64,9 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Gaussian Smoothing"  # window name
-windowName3 = "Bilaterial Filtering"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Gaussian Smoothing"  # window name
+window_name3 = "Bilaterial Filtering"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -76,28 +75,28 @@ if cap.open(args.camera_to_use):
 
     # create window by name
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
-    cv2.namedWindow(windowName3, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name3, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings Gaussian smoothing
 
     neighbourhood = 3
     cv2.createTrackbar(
         "neighbourhood, N",
-        windowName2,
+        window_name2,
         neighbourhood,
         40,
         nothing)
     sigma = 1
-    cv2.createTrackbar("sigma", windowName2, sigma, 10, nothing)
+    cv2.createTrackbar("sigma", window_name2, sigma, 10, nothing)
 
     # add some track bar controllers for settings bilateral smoothing
 
-    sigmaS = 10
-    cv2.createTrackbar("sigmaS", windowName3, sigmaS, 25, nothing)
-    sigmaR = 10
-    cv2.createTrackbar("sigmaR", windowName3, sigmaR, 25, nothing)
+    sigma_s = 10
+    cv2.createTrackbar("sigma S", window_name3, sigma_s, 25, nothing)
+    sigma_r = 10
+    cv2.createTrackbar("sigma R", window_name3, sigma_r, 25, nothing)
 
     while (keep_processing):
 
@@ -120,13 +119,13 @@ if cap.open(args.camera_to_use):
 
         # get parameter from track bars - Gaussian
 
-        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2)
-        sigma = cv2.getTrackbarPos("sigma", windowName2)
+        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", window_name2)
+        sigma = cv2.getTrackbarPos("sigma", window_name2)
 
         # get parameter from track bars - bilateral
 
-        sigmaS = cv2.getTrackbarPos("sigmaS", windowName3)
-        sigmaR = cv2.getTrackbarPos("sigmaR", windowName3)
+        sigma_s = cv2.getTrackbarPos("sigma S", window_name3)
+        sigma_r = cv2.getTrackbarPos("sigma R", window_name3)
 
         # check neighbourhood is greater than 3 and odd
 
@@ -145,24 +144,25 @@ if cap.open(args.camera_to_use):
             borderType=cv2.BORDER_REPLICATE)
 
         # perform bilateral filtering using a neighbourhood calculated
-        # automatically from sigmaS
+        # automatically from sigma_s
 
         filtered_img = cv2.bilateralFilter(
-            frame, -1, sigmaR, sigmaS, borderType=cv2.BORDER_REPLICATE)
+            frame, -1, sigma_r, sigma_s, borderType=cv2.BORDER_REPLICATE)
 
         # display image
 
-        cv2.imshow(windowName, frame)
-        cv2.imshow(windowName2, smoothed_img)
-        cv2.imshow(windowName3, filtered_img)
+        cv2.imshow(window_name, frame)
+        cv2.imshow(window_name2, smoothed_img)
+        cv2.imshow(window_name3, filtered_img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF

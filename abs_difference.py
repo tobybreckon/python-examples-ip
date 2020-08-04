@@ -1,8 +1,8 @@
 #####################################################################
 
 # Example : simple image differencing and contrast via multiplication
-# from a video file specified on the command line (e.g. python FILE.py video_file)
-# or from an attached web camera
+# from a video file specified on the command line
+# (e.g. python FILE.py video_file) or from an attached web camera
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
@@ -66,8 +66,8 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Difference Image"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Difference Image"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -77,19 +77,19 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
     contrast = 1
-    cv2.createTrackbar("contrast", windowName2, contrast, 30, nothing)
+    cv2.createTrackbar("contrast", window_name2, contrast, 30, nothing)
 
     fps = 25
-    cv2.createTrackbar("fps", windowName2, fps, 25, nothing)
+    cv2.createTrackbar("fps", window_name2, fps, 25, nothing)
 
     threshold = 0
-    cv2.createTrackbar("threshold", windowName2, threshold, 255, nothing)
+    cv2.createTrackbar("threshold", window_name2, threshold, 255, nothing)
 
     # if video file or camera successfully open then read frame from video
 
@@ -138,7 +138,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # retrieve the contrast setting from the track bar
 
-        contrast = cv2.getTrackbarPos("contrast", windowName2)
+        contrast = cv2.getTrackbarPos("contrast", window_name2)
 
         # multiple the result to increase the contrast (so we can see small
         # pixel changes)
@@ -147,11 +147,11 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # threshold the image if its in grayscale and we have a valid threshold
 
-        threshold = cv2.getTrackbarPos("threshold", windowName2)
+        threshold = cv2.getTrackbarPos("threshold", window_name2)
 
         if (use_greyscale and (threshold > 0)):
 
@@ -161,21 +161,22 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
             ret, thresholded_img = cv2.threshold(
                 brightened_img, 127, 255, cv2.THRESH_BINARY)
-            cv2.imshow(windowName2, thresholded_img)
+            cv2.imshow(window_name2, thresholded_img)
         else:
             # otherwise just display the non-thresholded one
 
-            cv2.imshow(windowName2, brightened_img)
+            cv2.imshow(window_name2, brightened_img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
-        fps = cv2.getTrackbarPos("fps", windowName2)
+        fps = cv2.getTrackbarPos("fps", window_name2)
         # wait T ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(int(1000 / max(1, fps))) & 0xFF
 
@@ -201,8 +202,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
                 prev_frame = cv2.cvtColor(prev_frame, cv2.COLOR_GRAY2BGR)
         else:
 
-            # make a deep copy of the current frame (as all camera frames otherwise reside
-            # in the same portion of allocated memory)
+            # make a deep copy of the current frame (as all camera frames
+            # otherwise reside in the same portion of allocated memory)
             prev_frame = frame.copy()
 
     # close all windows
