@@ -60,10 +60,10 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowNameH = "Hue Channel"  # window name
-windowNameS = "Saturation Channel"  # window name
-windowNameV = "Value Channel"  # window name
+window_name = "Live Camera Input"  # window name
+window_name_hue = "Hue Channel"  # window name
+window_name_sat = "Saturation Channel"  # window name
+window_name_val = "Value Channel"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -73,7 +73,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
     # usage
 
@@ -106,12 +106,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # colour channels are HSV ordering in OpenCV
 
-        cv2.imshow(windowNameS, img_hsv[:, :, 1])  # saturation
-        cv2.imshow(windowNameV, img_hsv[:, :, 2])  # value
+        cv2.imshow(window_name_sat, img_hsv[:, :, 1])  # saturation
+        cv2.imshow(window_name_val, img_hsv[:, :, 2])  # value
 
         if (colour_map_hue):
             # re map S and V to top outer rim of HSV colour space
@@ -119,13 +119,13 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             img_hsv[:, :, 1] = np.ones(img_hsv[:, :, 1].shape) * 255
             img_hsv[:, :, 2] = np.ones(img_hsv[:, :, 1].shape) * 255
 
-            # convert the result back to BGR to produce a false colour version of hue
-            # for display
+            # convert the result back to BGR to produce a false colour
+            # version of hue for display
 
             colour_mapped_hue = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
-            cv2.imshow(windowNameH, colour_mapped_hue)  # colour mapped hue
+            cv2.imshow(window_name_hue, colour_mapped_hue)  # colour mapped hue
         else:
-            cv2.imshow(windowNameH, img_hsv[:, :, 0])  # hue
+            cv2.imshow(window_name_hue, img_hsv[:, :, 0])  # hue
 
         # stop the timer and convert to ms. (to see how long processing and
         # display takes)
@@ -135,13 +135,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time
-        # already used in the loop
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms /
         # 25 fps = 40 ms)
