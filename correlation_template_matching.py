@@ -94,9 +94,9 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Correlation Output"  # window name
-windowNameSelection = "selected"
+window_name = "Live Camera Input"  # window name
+window_name2 = "Correlation Output"  # window name
+window_name_selection = "selected"
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -106,13 +106,13 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name (note flags for resizable or not)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowNameSelection, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name_selection, cv2.WINDOW_NORMAL)
 
     # set a mouse callback
 
-    cv2.setMouseCallback(windowName, on_mouse, 0)
+    cv2.setMouseCallback(window_name, on_mouse, 0)
     cropped = False
 
     # usage
@@ -152,7 +152,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             h, w, c = crop.shape   # size of template
             if (h > 0) and (w > 0):
                 cropped = True
-                cv2.imshow(windowNameSelection, crop)
+                cv2.imshow(window_name_selection, crop)
 
         # interactive display of selection box
 
@@ -168,17 +168,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         if cropped:
             correlation = cv2.matchTemplate(frame, crop, cv2.TM_CCOEFF_NORMED)
-            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(correlation)
+            min_val, max_val, min_loc, max_loc = cv2.minmax_loc(correlation)
             h, w, c = crop.shape   # size of template
-            top_left = max_loc     # top left of where template matches image frame
+            top_left = max_loc     # top left of template matching image frame
             bottom_right = (top_left[0] + w, top_left[1] + h)
             cv2.rectangle(frame, top_left, bottom_right, (0, 0, 255), 2)
 
-            cv2.imshow(windowName2, correlation)
+            cv2.imshow(window_name2, correlation)
 
         # display image
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # stop the timer and convert to ms. (to see how long processing and
         # display takes)
@@ -188,13 +188,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
-        # here we use a wait time in ms. that takes account of processing time
-        # already used in the loop
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms or less depending on processing time taken (i.e. 1000ms /
         # 25 fps = 40 ms)
