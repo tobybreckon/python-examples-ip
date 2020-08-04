@@ -1,8 +1,8 @@
 #####################################################################
 
-# Example : display fourier magnitude spectrum of image frame from a video file
-# specified on the command line (e.g. python FILE.py video_file) or from an
-# attached web camera
+# Example : display fourier magnitude spectrum of image frame from a
+# video file specified on the command line (e.g. python FILE.py
+# video_file) or from an attached web camera
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 # Copyright (c) 2015 School of Engineering & Computing Science,
@@ -17,6 +17,7 @@ import argparse
 import sys
 import numpy as np
 import math
+
 #####################################################################
 
 # ignore divide by zero errors in np.log() operations
@@ -62,8 +63,8 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Fourier Magnitude Spectrum"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Fourier Magnitude Spectrum"  # window name
 
 
 # if command line arguments are provided try to read video_file
@@ -74,8 +75,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
 
     # if video file or camera successfully open then read frame from video
 
@@ -124,9 +125,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        # Performance of DFT calculation, via the FFT, is better for array sizes of power of two.
-        # Arrays whose size is a product of 2's, 3's, and 5's are also processed quite efficiently.
-        # Hence ee modify the size of the array tothe optimal size (by padding
+        # Performance of DFT calculation, via the FFT, is better for array
+        # sizes of power of two. Arrays whose size is a product of
+        # 2's, 3's, and 5's are also processed quite efficiently.
+        # Hence we modify the size of the array to the optimal size (by padding
         # zeros) before finding DFT.
 
         pad_right = nwidth - width
@@ -172,8 +174,8 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, gray_frame)
-        cv2.imshow(windowName2, magnitude_spectrum_normalized)
+        cv2.imshow(window_name, gray_frame)
+        cv2.imshow(window_name2, magnitude_spectrum_normalized)
 
         # stop timer and convert to ms. (to see how long processing and display
         # takes)
@@ -183,11 +185,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # here we use a wait time in ms. that takes account of processing time
         # already used in the loop
