@@ -15,7 +15,6 @@ import numpy as np
 import sys
 import re
 import struct
-import math
 import matplotlib
 
 #####################################################################
@@ -23,24 +22,25 @@ import matplotlib
 # check if the OpenCV we are using has the extra modules available
 
 
-def extraOpenCVModulesPresent():
+def extra_opencv_modules_present():
     (is_built, not_built) = cv2.getBuildInformation().split("Disabled:")
     return ('xfeatures2d' in is_built)
 
 
-def nonFreeAlgorithmsPresent():
+def non_free_opencv_algorithms_present():
     (before, after) = cv2.getBuildInformation().split("Non-free algorithms:")
     output_list = after.split("\n")
     return ('YES' in output_list[0])
 
 #####################################################################
 
+
 print()
 print("We are using OpenCV: " + cv2.__version__)
 print(".. do we have the OpenCV Contrib Modules: " +
-      str(extraOpenCVModulesPresent()))
+      str(extra_opencv_modules_present()))
 print(".. do we have the OpenCV Non-free algorithms: " +
-      str(nonFreeAlgorithmsPresent()))
+      str(non_free_opencv_algorithms_present()))
 print("We are using numpy: " + np.__version__)
 print("We are using matplotlib: " + matplotlib.__version__)
 print(".. and this is in Python: " + sys.version +
@@ -69,10 +69,10 @@ print()
 # credit to: https://tinyurl.com/y529vzc3
 
 print("Available Cuda Information: ")
-cuda_info = [re.sub('\s+', ' ', ci.strip()) for ci in \
-            cv2.getBuildInformation().strip().split('\n') \
-            if len(ci) > 0 and re.search(r'(nvidia*:?)|(cuda*:)|(cudnn*:)', \
-            ci.lower()) is not None]
+cuda_info = [re.sub('\\s+', ' ', ci.strip()) for ci in
+             cv2.getBuildInformation().strip().split('\n')
+             if len(ci) > 0 and re.search(r'(nvidia*:?)|(cuda*:)|(cudnn*:)',
+                                          ci.lower()) is not None]
 print("... " + str(cuda_info))
 print()
 
