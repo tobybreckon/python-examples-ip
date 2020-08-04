@@ -14,7 +14,6 @@
 import cv2
 import sys
 import argparse
-import math
 
 #####################################################################
 
@@ -64,8 +63,8 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Mean Filtering"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Mean Filtering"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -75,15 +74,15 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create window by name
 
-    cv2.namedWindow(windowName, cv2.WINDOW_AUTOSIZE)
-    cv2.namedWindow(windowName2, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name, cv2.WINDOW_AUTOSIZE)
+    cv2.namedWindow(window_name2, cv2.WINDOW_AUTOSIZE)
 
     # add some track bar controllers for settings
 
     neighbourhood = 3
     cv2.createTrackbar(
         "neighbourhood, N",
-        windowName2,
+        window_name2,
         neighbourhood,
         25,
         nothing)
@@ -109,12 +108,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # get parameters from track bars
 
-        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", windowName2)
+        neighbourhood = cv2.getTrackbarPos("neighbourhood, N", window_name2)
 
         neighbourhood = max(3, neighbourhood)
 
-        # in opencv blur() performs filtering with a NxN kernel where each element has a weight of
-        # 1 / (N^2) - this is mean filtering
+        # in opencv blur() performs filtering with a NxN kernel where each
+        # element has a weight of 1 / (N^2) - this is mean filtering
 
         mean_img = cv2.blur(
             frame,
@@ -124,16 +123,17 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display image
 
-        cv2.imshow(windowName, frame)
-        cv2.imshow(windowName2, mean_img)
+        cv2.imshow(window_name, frame)
+        cv2.imshow(window_name2, mean_img)
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # wait 40ms (i.e. 1000ms / 25 fps = 40 ms)
         key = cv2.waitKey(40) & 0xFF
