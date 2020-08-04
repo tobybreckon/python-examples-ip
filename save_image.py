@@ -10,9 +10,7 @@
 
 #####################################################################
 
-import numpy as np
 import cv2
-import argparse
 
 #####################################################################
 
@@ -22,7 +20,7 @@ img = cv2.imread('example.jpg', cv2.IMREAD_COLOR)
 
 # check it has loaded
 
-if not img is None:
+if img is not None:
 
     # performing logical inversion (see manual entry for bitwise_not()
 
