@@ -52,7 +52,7 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input -> Video File"  # window name
+window_name = "Live Camera Input -> Video File"  # window name
 
 # define video writer (video: 640 x 480 @ 25 fps)
 
@@ -67,7 +67,7 @@ if ((cap.open("input.avi")) or (cap.open(args.camera_to_use))):
 
     # create window by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 
     while (keep_processing):
 
@@ -101,15 +101,16 @@ if ((cap.open("input.avi")) or (cap.open(args.camera_to_use))):
 
         # display image
 
-        cv2.imshow(windowName, frame)
+        cv2.imshow(window_name, frame)
 
         # start the event loop - essential
 
-        # set cv2.waitKey() to minimum value of 1 so that the framerate is preserved
-        # for writing to video file (if we set it differently we get strange
-        # speeding up effects in the output, as we are specifying 25 fps playback
-        # but writing the frames at a slower rate - capture etc. takes some
-        # time).
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
+        # If you press any key in that time, the program continues.
+        # If 0 is passed, it waits indefinitely for a key stroke.
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         key = cv2.waitKey(1) & 0xFF  # wait 1ms only
 
