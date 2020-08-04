@@ -168,7 +168,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         if cropped:
             correlation = cv2.matchTemplate(frame, crop, cv2.TM_CCOEFF_NORMED)
-            min_val, max_val, min_loc, max_loc = cv2.minmax_loc(correlation)
+            min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(correlation)
             h, w, c = crop.shape   # size of template
             top_left = max_loc     # top left of template matching image frame
             bottom_right = (top_left[0] + w, top_left[1] + h)

@@ -196,7 +196,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # normalized the filtered image into 0 -> 255 (8-bit grayscale) so we
         # can see the output
 
-        min_val, max_val, min_loc, max_loc = cv2.minmax_loc(filtered_img)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(filtered_img)
         filtered_img_normalized = filtered_img * \
             (1.0 / (max_val - min_val)) + ((-min_val) / (max_val - min_val))
         filtered_img_normalized = np.uint8(filtered_img_normalized * 255)

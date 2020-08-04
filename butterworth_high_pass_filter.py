@@ -191,7 +191,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # stretch input image so that input and output match
 
-        min_val, max_val, min_loc, max_loc = cv2.minmax_loc(gray_frame[:, :])
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(gray_frame[:, :])
         gray_frame_float = np.float32(
             gray_frame[:, :]) * (1.0 / (max_val - min_val)) \
             + ((-min_val) / (max_val - min_val))
@@ -250,7 +250,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # can see the output
 
         min_val, max_val, min_loc, max_loc = \
-            cv2.minmax_loc(filtered_img[:, :, 0])
+            cv2.minMaxLoc(filtered_img[:, :, 0])
         filtered_img_normalized = filtered_img[:, :, 0] * (
             1.0 / (max_val - min_val)) + ((-min_val) / (max_val - min_val))
         filtered_img_normalized = np.uint8(filtered_img_normalized * 255)

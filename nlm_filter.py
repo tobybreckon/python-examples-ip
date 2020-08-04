@@ -147,7 +147,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
             h=filter_strength,
             hColor=10,
             templateWindowSize=neighbourhood,
-            search_windowindowSize=search_window)
+            searchWindowSize=search_window)
 
         # display image
 
