@@ -83,9 +83,9 @@ cap = cv2.VideoCapture()
 
 # define display window name
 
-windowName = "Live Camera Input"  # window name
-windowName2 = "Fourier Magnitude Spectrum"  # window name
-windowName3 = "Filtered Image"  # window name
+window_name = "Live Camera Input"  # window name
+window_name2 = "Fourier Magnitude Spectrum"  # window name
+window_name3 = "Filtered Image"  # window name
 
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
@@ -95,14 +95,14 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # create windows by name (as resizable)
 
-    cv2.namedWindow(windowName, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName2, cv2.WINDOW_NORMAL)
-    cv2.namedWindow(windowName3, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name2, cv2.WINDOW_NORMAL)
+    cv2.namedWindow(window_name3, cv2.WINDOW_NORMAL)
 
     # add some track bar controllers for settings
 
     radius = 25
-    cv2.createTrackbar("radius", windowName2, radius, 200, nothing)
+    cv2.createTrackbar("radius", window_name2, radius, 200, nothing)
 
     # if video file or camera successfully open then read frame from video
 
@@ -151,9 +151,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-        # Performance of DFT calculation, via the FFT, is better for array sizes of power of two.
-        # Arrays whose size is a product of 2's, 3's, and 5's are also processed quite efficiently.
-        # Hence ee modify the size of the array tothe optimal size (by padding
+        # Performance of DFT calculation, via the FFT, is better for array
+        # sizes of power of two. Arrays whose size is a product of
+        # 2's, 3's, and 5's are also processed quite efficiently.
+        # Hence we modify the size of the array to the optimal size (by padding
         # zeros) before finding DFT.
 
         pad_right = nwidth - width
@@ -178,7 +179,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # perform high pass filtering
 
-        radius = cv2.getTrackbarPos("radius", windowName2)
+        radius = cv2.getTrackbarPos("radius", window_name2)
         hp_filter = create_high_pass_filter(nwidth, nheight, radius)
 
         dft_filtered = cv2.mulSpectrums(dft_shifted, hp_filter, flags=0)
@@ -194,9 +195,10 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         # normalized the filtered image into 0 -> 255 (8-bit grayscale) so we
         # can see the output
 
-        minVal, maxVal, minLoc, maxLoc = cv2.minMaxLoc(filtered_img[:, :, 0])
+        min_val, max_val, min_loc, max_loc = \
+            cv2.minmax_loc(filtered_img[:, :, 0])
         filtered_img_normalized = filtered_img[:, :, 0] * (
-            1.0 / (maxVal - minVal)) + ((-minVal) / (maxVal - minVal))
+            1.0 / (max_val - min_val)) + ((-min_val) / (max_val - min_val))
         filtered_img_normalized = np.uint8(filtered_img_normalized * 255)
 
         # calculate the magnitude spectrum and log transform + scale it for
@@ -222,9 +224,9 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # display images
 
-        cv2.imshow(windowName, gray_frame)
-        cv2.imshow(windowName2, magnitude_spectrum_normalized)
-        cv2.imshow(windowName3, filtered_img_normalized)
+        cv2.imshow(window_name, gray_frame)
+        cv2.imshow(window_name2, magnitude_spectrum_normalized)
+        cv2.imshow(window_name3, filtered_img_normalized)
 
         # stop timer and convert to ms. (to see how long processing and display
         # takes)
@@ -234,11 +236,12 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
         # start the event loop - essential
 
-        # cv2.waitKey() is a keyboard binding function (argument is the time in milliseconds).
-        # It waits for specified milliseconds for any keyboard event.
+        # cv2.waitKey() is a keyboard binding function (argument is the time in
+        # ms). It waits for specified milliseconds for any keyboard event.
         # If you press any key in that time, the program continues.
         # If 0 is passed, it waits indefinitely for a key stroke.
-        # (bitwise and with 0xFF to extract least significant byte of multi-byte response)
+        # (bitwise and with 0xFF to extract least significant byte of
+        # multi-byte response)
 
         # here we use a wait time in ms. that takes account of processing time
         # already used in the loop
