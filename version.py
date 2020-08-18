@@ -34,13 +34,16 @@ def non_free_opencv_algorithms_present():
 
 #####################################################################
 
-
 print()
 print("We are using OpenCV: " + cv2.__version__)
 print(".. do we have the OpenCV Contrib Modules: " +
       str(extra_opencv_modules_present()))
-print(".. do we have the OpenCV Non-free algorithms: " +
-      str(non_free_opencv_algorithms_present()))
+try:
+    print(".. do we have the OpenCV Non-free algorithms: " +
+          str(non_free_opencv_algorithms_present()))
+except BaseException:
+    print(".. OpenCV version pre-dates (or does not have) non-free algorithms module")
+
 print("We are using numpy: " + np.__version__)
 print("We are using matplotlib: " + matplotlib.__version__)
 print(".. and this is in Python: " + sys.version +
