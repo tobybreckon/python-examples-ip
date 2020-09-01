@@ -32,6 +32,7 @@ def non_free_opencv_algorithms_present():
     output_list = after.split("\n")
     return ('YES' in output_list[0])
 
+
 #####################################################################
 
 print()
@@ -42,7 +43,8 @@ try:
     print(".. do we have the OpenCV Non-free algorithms: " +
           str(non_free_opencv_algorithms_present()))
 except BaseException:
-    print(".. OpenCV version pre-dates (or does not have) non-free algorithms module")
+    print(".. OpenCV version pre-dates (or does not have) " +
+          "non-free algorithms module")
 
 print("We are using numpy: " + np.__version__)
 print("We are using matplotlib: " + matplotlib.__version__)
@@ -81,4 +83,10 @@ print()
 
 print("OpenCL available (within OpenCV) ? : " + str(cv2.ocl.haveOpenCL()))
 print()
+#####################################################################
+
+print("Available CPU Optimizations (*: build enabled; ?: not CPU supported):")
+print("... " + cv2.getCPUFeaturesLine())
+print()
+
 #####################################################################
