@@ -80,12 +80,19 @@ cuda_info = [re.sub('\\s+', ' ', ci.strip()) for ci in
                                           ci.lower()) is not None]
 print("... " + str(cuda_info))
 print()
+
+#####################################################################
+
 for gpu in range(cv2.cuda.getCudaEnabledDeviceCount()):
     print("CUDA enabled GPU device index: " + str(gpu) + " ")
     cv2.cuda.printShortCudaDeviceInfo(gpu)
     print()
+
+#####################################################################
+
 print("OpenCL available (within OpenCV) ? : " + str(cv2.ocl.haveOpenCL()))
 print()
+
 #####################################################################
 
 print("Available CPU Optimizations (*: build enabled; ?: not CPU supported):")
