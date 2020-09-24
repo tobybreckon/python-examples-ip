@@ -77,7 +77,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
     # usage
 
-    print("USAGE: press 'c' for Hue channel colour mapping")
+    print("USAGE: press 'c' to toggle Hue channel colour mapping")
 
     while (keep_processing):
 
@@ -155,7 +155,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         if (key == ord('x')):
             keep_processing = False
         elif (key == ord('c')):
-            colour_map_hue = True
+            colour_map_hue = not(colour_map_hue)
 
     # close all windows
 
