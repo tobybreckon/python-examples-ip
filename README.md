@@ -1,7 +1,7 @@
 # Python Image Processing OpenCV Teaching Examples
 
 OpenCV Python image processing examples used for teaching within the undergraduate Computer Science programme
-at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](http://community.dur.ac.uk/toby.breckon/).
+at [Durham University](http://www.durham.ac.uk) (UK) by [Prof. Toby Breckon](https://breckon.org/toby/).
 
 ![Python - PEP8](https://github.com/tobybreckon/python-examples-ip/workflows/Python%20-%20PEP8/badge.svg)
 
