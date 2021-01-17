@@ -61,6 +61,7 @@ def hist_lines(hist):
     cv2.normalize(hist, hist, 0, 255, cv2.NORM_MINMAX)
     hist = np.int32(np.around(hist))
     for x, y in enumerate(hist):
+        y = y[0]
         cv2.line(h, (x, 0), (x, y), (0, 0, 0))  # black bars
     y = np.flipud(h)
     return y
