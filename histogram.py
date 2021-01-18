@@ -77,6 +77,7 @@ def hist_lines(hist):
     y = np.flipud(h)
     return y
 
+
 #####################################################################
 
 # define video capture object

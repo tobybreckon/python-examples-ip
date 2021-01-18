@@ -55,6 +55,7 @@ args = parser.parse_args()
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # define video capture object
@@ -83,7 +84,8 @@ window_name3 = "Bilaterial Filtering"  # window name
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
-if cap.open(args.camera_to_use):
+if (((args.video_file) and (cap.open(str(args.video_file))))
+        or (cap.open(args.camera_to_use))):
 
     # create window by name
 

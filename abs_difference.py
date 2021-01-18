@@ -57,6 +57,7 @@ use_greyscale = False
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # define video capture object

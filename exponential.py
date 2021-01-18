@@ -55,13 +55,13 @@ args = parser.parse_args()
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # exponential transform
 # image - greyscale image
 # c - scaling constant
 # alpha - "gradient" co-efficient of exponential function
-
 
 def exponential_transform(image, c, alpha):
     for i in range(0, image.shape[1]):  # image width
@@ -71,6 +71,7 @@ def exponential_transform(image, c, alpha):
 
             image[j, i] = int(c * (math.pow(1 + alpha, image[j, i]) - 1))
     return image
+
 
 #####################################################################
 

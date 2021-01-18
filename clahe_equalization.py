@@ -66,6 +66,7 @@ def hist_lines(hist):
     y = np.flipud(h)
     return y
 
+
 #####################################################################
 
 # this function is called as a call-back everytime the trackbar is moved
@@ -74,6 +75,7 @@ def hist_lines(hist):
 
 def nothing(x):
     pass
+
 
 #####################################################################
 

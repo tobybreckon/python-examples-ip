@@ -66,6 +66,7 @@ def create_low_pass_filter(width, height, radius):
                radius, (1, 1, 1), thickness=-1)
     return lp_filter
 
+
 #####################################################################
 
 # this function is called as a call-back everytime the trackbar is moved
@@ -74,6 +75,7 @@ def create_low_pass_filter(width, height, radius):
 
 def nothing(x):
     pass
+
 
 #####################################################################
 

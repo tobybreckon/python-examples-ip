@@ -85,6 +85,7 @@ def on_mouse(event, x, y, flags, params):
         selection_in_progress = False
         boxes.append(ebox)
 
+
 #####################################################################
 
 # define video capture object

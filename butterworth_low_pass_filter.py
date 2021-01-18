@@ -98,6 +98,7 @@ def reset_butterworth_filter(_):
     recompute_filter = True
     return
 
+
 #####################################################################
 
 # define video capture object

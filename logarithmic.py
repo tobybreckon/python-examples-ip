@@ -55,6 +55,7 @@ args = parser.parse_args()
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # logarithmic transform
@@ -73,6 +74,7 @@ def logarithmic_transform(image, c, sigma):
                               ((math.exp(sigma) - 1) * image[j, i])))
 
     return image
+
 
 #####################################################################
 

@@ -66,6 +66,7 @@ def hist_lines(hist):
     y = np.flipud(h)
     return y
 
+
 #####################################################################
 
 # define video capture object
@@ -84,7 +85,7 @@ except BaseException:
 
     print("INFO: camera_stream class not found - camera input may be buffered")
     cap = cv2.VideoCapture()
-    
+
 # define display window name
 
 window_name1 = "Live Camera Input"  # window name

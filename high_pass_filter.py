@@ -65,6 +65,7 @@ def create_high_pass_filter(width, height, radius):
                radius, (0, 0, 0), thickness=-1)
     return hp_filter
 
+
 #####################################################################
 
 # this function is called as a call-back everytime the trackbar is moved
@@ -73,6 +74,7 @@ def create_high_pass_filter(width, height, radius):
 
 def nothing(x):
     pass
+
 
 #####################################################################
 

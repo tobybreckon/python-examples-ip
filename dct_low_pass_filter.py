@@ -82,6 +82,7 @@ def get_optimal_dct_size(n):
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # define video capture object

@@ -56,6 +56,7 @@ args = parser.parse_args()
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # power law transform
@@ -73,6 +74,7 @@ def powerlaw_transform(image, gamma):
     image = np.clip(np.power(image, gamma), 0, 255).astype('uint8')
 
     return image
+
 
 #####################################################################
 

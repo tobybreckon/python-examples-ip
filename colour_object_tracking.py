@@ -86,14 +86,15 @@ def on_mouse(event, x, y, flags, params):
         selection_in_progress = False
         boxes.append(ebox)
 
+
 #####################################################################
 
 # this function is called as a call-back everytime the trackbar is moved
 # (here we just do nothing)
 
-
 def nothing(x):
     pass
+
 
 #####################################################################
 
