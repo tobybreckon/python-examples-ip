@@ -65,6 +65,7 @@ def create_high_pass_filter(width, height, radius):
                radius, (0, 0, 0), thickness=-1)
     return hp_filter
 
+
 #####################################################################
 
 # this function is called as a call-back everytime the trackbar is moved
@@ -74,12 +75,25 @@ def create_high_pass_filter(width, height, radius):
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # define video capture object
 
+try:
+    # to use a non-buffered camera stream (via a separate thread)
 
-cap = cv2.VideoCapture()
+    if not(args.video_file):
+        import camera_stream
+        cap = camera_stream.CameraVideoStream(use_tapi=False)
+    else:
+        cap = cv2.VideoCapture()  # not needed for video files
+
+except BaseException:
+    # if not then just use OpenCV default
+
+    print("INFO: camera_stream class not found - camera input may be buffered")
+    cap = cv2.VideoCapture()
 
 # define display window name
 

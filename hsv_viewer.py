@@ -56,7 +56,20 @@ colour_map_hue = False  # use colour mapping to display Hue
 
 # define video capture object
 
-cap = cv2.VideoCapture()
+try:
+    # to use a non-buffered camera stream (via a separate thread)
+
+    if not(args.video_file):
+        import camera_stream
+        cap = camera_stream.CameraVideoStream(use_tapi=False)
+    else:
+        cap = cv2.VideoCapture()  # not needed for video files
+
+except BaseException:
+    # if not then just use OpenCV default
+
+    print("INFO: camera_stream class not found - camera input may be buffered")
+    cap = cv2.VideoCapture()
 
 # define display window name
 

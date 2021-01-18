@@ -81,6 +81,14 @@ All of these examples make use of the OpenCV ``VideoCapture()`` video capture in
 
 ---
 
+### Re-usable Exemplar Components (Python Classes):
+
+This codebase contains the following re-usable exemplar elements:
+
+- ```camera_stream.py``` - a re-usable threaded camera class, that is call compatible with the existing OpenCV VideoCapture class, designed to always deliver the latest frame from a single camera without buffering delays (used by all examples if available).
+
+---
+
 ### Reference:
 
 All techniques are fully explained in corresponding section of:

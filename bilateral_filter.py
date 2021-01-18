@@ -55,12 +55,25 @@ args = parser.parse_args()
 def nothing(x):
     pass
 
+
 #####################################################################
 
 # define video capture object
 
+try:
+    # to use a non-buffered camera stream (via a separate thread)
 
-cap = cv2.VideoCapture()
+    if not(args.video_file):
+        import camera_stream
+        cap = camera_stream.CameraVideoStream(use_tapi=False)
+    else:
+        cap = cv2.VideoCapture()  # not needed for video files
+
+except BaseException:
+    # if not then just use OpenCV default
+
+    print("INFO: camera_stream class not found - camera input may be buffered")
+    cap = cv2.VideoCapture()
 
 # define display window name
 
@@ -71,7 +84,8 @@ window_name3 = "Bilaterial Filtering"  # window name
 # if command line arguments are provided try to read video_file
 # otherwise default to capture from attached H/W camera
 
-if cap.open(args.camera_to_use):
+if (((args.video_file) and (cap.open(str(args.video_file))))
+        or (cap.open(args.camera_to_use))):
 
     # create window by name
 
