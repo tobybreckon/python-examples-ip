@@ -77,8 +77,6 @@ We are using matplotlib: x.x.x
 
 More generally an extended set of [OpenCV functionality tests](TESTING.md) is available (used to check OpenCV itself is working) and also a simple bash shell script (``test_all.sh``) to run through all the examples for semi-automated testing.
 
-All of these examples make use of the OpenCV ``VideoCapture()`` video capture interface directly for camera access and may therefore suffer from camera buffering delays (i.e. lag on video from camera). For an alternative camera access approach that offers a solution to this problem see the usage of the ``camera_stream.py`` class in the accompanying [OpenCV Python Computer Vision Examples used for Teaching](https://github.com/tobybreckon/python-examples-cv) repository.
-
 ---
 
 ### Re-usable Exemplar Components (Python Classes):
@@ -86,6 +84,8 @@ All of these examples make use of the OpenCV ``VideoCapture()`` video capture in
 This codebase contains the following re-usable exemplar elements:
 
 - ```camera_stream.py``` - a re-usable threaded camera class, that is call compatible with the existing OpenCV VideoCapture class, designed to always deliver the latest frame from a single camera without buffering delays (used by all examples if available).
+
+The master copy of the above is available from the the [OpenCV Python Computer Vision Examples used for Teaching](https://github.com/tobybreckon/python-examples-cv) repository.
 
 ---
 
