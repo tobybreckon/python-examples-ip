@@ -22,9 +22,9 @@ img = cv2.imread('example.jpg', cv2.IMREAD_COLOR)
 
 if img is not None:
 
-    # performing logical inversion (see manual entry for bitwise_not()
+    # performing logical inversion (see manual entry for bitwise_not ()
 
-    inverted = cv2.bitwise_not(img)
+    inverted = cv2.bitwise_not (img)
 
     # write inverted image to file
 

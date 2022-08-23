@@ -106,7 +106,7 @@ def reset_butterworth_filter(_):
 try:
     # to use a non-buffered camera stream (via a separate thread)
 
-    if not(args.video_file):
+    if not (args.video_file):
         import camera_stream
         cap = camera_stream.CameraVideoStream(use_tapi=False)
     else:

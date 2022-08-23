@@ -59,7 +59,7 @@ window_name = "Live Camera Input"  # window name
 
 # open camera device (and check it worked)
 
-if not(cap.open(args.camera_to_use)):
+if not (cap.open(args.camera_to_use)):
     print("Cannot open camera - check connection and operation as suggested.")
     sys.exit
 

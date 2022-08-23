@@ -57,7 +57,7 @@ perform_chroma_subsampling = False
 try:
     # to use a non-buffered camera stream (via a separate thread)
 
-    if not(args.video_file):
+    if not (args.video_file):
         import camera_stream
         cap = camera_stream.CameraVideoStream(use_tapi=False)
     else:
@@ -176,7 +176,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
         if (key == ord('x')):
             keep_processing = False
         elif (key == ord('s')):
-            perform_chroma_subsampling = not(perform_chroma_subsampling)
+            perform_chroma_subsampling = not (perform_chroma_subsampling)
 
     # close all windows
 

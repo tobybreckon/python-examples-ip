@@ -65,7 +65,7 @@ def nothing(x):
 try:
     # to use a non-buffered camera stream (via a separate thread)
 
-    if not(args.video_file):
+    if not (args.video_file):
         import camera_stream
         cap = camera_stream.CameraVideoStream(use_tapi=False)
     else:
@@ -205,7 +205,7 @@ if (((args.video_file) and (cap.open(str(args.video_file))))
 
             # toggle grayscale usage (when they press 'g')
 
-            use_greyscale = not(use_greyscale)
+            use_greyscale = not (use_greyscale)
 
             # if the previous frame we stored also has 3 channels (colour)
             if (len(prev_frame.shape) != 3):
