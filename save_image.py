@@ -24,7 +24,7 @@ if img is not None:
 
     # performing logical inversion (see manual entry for bitwise_not ()
 
-    inverted = cv2.bitwise_not (img)
+    inverted = cv2.bitwise_not(img)
 
     # write inverted image to file
 
