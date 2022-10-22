@@ -4,8 +4,7 @@
 
 # Author : Toby Breckon, toby.breckon@durham.ac.uk
 
-# Copyright (c) 2017 Toby Breckon
-#                    Durham University, UK
+# Copyright (c) 2017-2022 Toby Breckon, Durham University, UK
 # License : LGPL - http://www.gnu.org/licenses/lgpl.html
 
 #####################################################################
@@ -45,7 +44,13 @@ try:
 except BaseException:
     print(".. OpenCV version pre-dates (or does not have) " +
           "non-free algorithms module")
-
+try:
+    print(".. do we have the Intel Performance Primitives (IPP): \n" +
+          ".. version: " + str(cv2.ipp.getIppVersion()) + " (in use: "
+          + str(cv2.ipp.useIPP()) + " )")
+except BaseException:
+    print(".. OpenCV version does not have " +
+          "Intel Performance Primitives (IPP)")
 print("We are using numpy: " + np.__version__)
 print("We are using matplotlib: " + matplotlib.__version__)
 print(".. and this is in Python: " + sys.version +
