@@ -95,6 +95,27 @@ for gpu in range(cv2.cuda.getCudaEnabledDeviceCount()):
 
 #####################################################################
 
+print("DNN module CUDA backend/target availability : ", end='')
+try:
+    targets = cv2.dnn.getAvailableTargets(cv2.dnn.DNN_BACKEND_CUDA)
+    print()
+    print("... DNN_TARGET_CUDA: \t\t", end='')
+    print(cv2.dnn.DNN_TARGET_CUDA in targets)
+    print("... DNN_TARGET_CUDA_FP16: \t", end='')
+    print(cv2.dnn.DNN_TARGET_CUDA_FP16 in targets)
+    targets = cv2.dnn.getAvailableTargets(cv2.dnn.DNN_BACKEND_DEFAULT)
+    print("... DNN_TARGET_CPU: \t\t", end='')
+    print(cv2.dnn.DNN_TARGET_CPU in targets)
+    print("... DNN_TARGET_OPENCL: \t\t", end='')
+    print(cv2.dnn.DNN_TARGET_OPENCL in targets)
+    print("... DNN_TARGET_OPENCL_FP16: \t", end='')
+    print(cv2.dnn.DNN_TARGET_OPENCL_FP16 in targets)
+except BaseException:
+    print("False")
+
+#####################################################################
+
+print()
 print("OpenCL available (within OpenCV) ? : " + str(cv2.ocl.haveOpenCL()))
 print()
 
