@@ -27,6 +27,8 @@ python3 ./version.py
 We are using OpenCV: CCC
 .. do we have the OpenCV Contrib Modules: True
 .. do we have the OpenCV Non-free algorithms: True
+.. do we have the Intel Performance Primitives (IPP): 
+.. version: <???> (in use: True)
 We are using numpy: <???>
 We are using matplotlib: <???>
 .. and this is in Python: PPP ??? (64 bit)
@@ -40,6 +42,13 @@ Available Cuda Information:
 ... ['NVIDIA CUDA: YES (ver NNN, RRR)', 'NVIDIA GPU arch: ???', 'NVIDIA PTX archs: ZZZ']
 
 GGG
+
+DNN module CUDA backend/target availability : 
+... DNN_TARGET_CUDA:            True
+... DNN_TARGET_CUDA_FP16:       True
+... DNN_TARGET_CPU:             True
+... DNN_TARGET_OPENCL:          True
+... DNN_TARGET_OPENCL_FP16:     True
 
 OpenCL available (within OpenCV) ? : True
 
