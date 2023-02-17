@@ -122,7 +122,11 @@ print()
 #####################################################################
 
 print("Available CPU Optimizations (*: build enabled; ?: not CPU supported):")
-print("... " + cv2.getCPUFeaturesLine())
-print()
+try:
+    print("... " + cv2.getCPUFeaturesLine())
+    print()
+except BaseException:
+    print("... [ CPU feature check not available in this version ]")
+    print()
 
 #####################################################################
