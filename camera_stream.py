@@ -160,7 +160,7 @@ class CameraVideoStream:
             self.open(src, backend)
             if not (backend == cv2.CAP_V4L):
                 self.use_timestamps = False
-                
+
     def open(self, src=0, backend=None):
 
         # determine backend to specified by user
