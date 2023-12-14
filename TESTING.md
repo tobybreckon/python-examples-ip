@@ -6,7 +6,7 @@ All tested with [OpenCV](http://www.opencv.org) 3.x / 4.x and Python 3.x.
 
 _Assumes that git and wget tools are available on the command line or that similar tools are available to access git / download files._
 
-(_On-site at Durham University_: For testing on MS Windows, download and unzip example files from source URL as specified - [here](https://github.com/tobybreckon/python-examples-ip.git) - onto the user space J:/ drive. On Linux run the associated ``opencv ... .init`` shell script before testing.).
+(_On-site at Durham University_: For testing on MS Windows, download and unzip example files from source URL as specified - [here](https://github.com/tobybreckon/python-examples-ip.git) - onto the user space J:/ drive. On Linux run the associated ``opencv.init`` shell script before testing.).
 
 ---
 
