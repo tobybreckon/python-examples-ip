@@ -139,12 +139,12 @@ python3 ./save_video.py -c 0
 
 ## Test #4 - test video read function:
 
-(for MS Windows download video from [here](http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4) and save as video.avi in directory python-examples-ip-master)
+(for MS Windows download video from [here](https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_surround.avi) and save as video.avi in directory python-examples-ip-master)
 
 ```
 .. (as per test 1 for steps 1 + 2)
-wget http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4
-mv big_buck_bunny.mp4 video.avi
+wget https://download.blender.org/peach/bigbuckbunny_movies/big_buck_bunny_720p_surround.avi
+mv big_buck_bunny_720p_surround.avi video.avi
 python3 ./capture_video.py
 ```
 
