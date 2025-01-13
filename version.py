@@ -88,10 +88,14 @@ print()
 
 #####################################################################
 
-for gpu in range(cv2.cuda.getCudaEnabledDeviceCount()):
-    print("CUDA enabled GPU device index: " + str(gpu) + " ")
-    cv2.cuda.printShortCudaDeviceInfo(gpu)
-    print()
+try:
+    for gpu in range(cv2.cuda.getCudaEnabledDeviceCount()):
+        print("CUDA enabled GPU device index: " + str(gpu) + " ")
+        cv2.cuda.printShortCudaDeviceInfo(gpu)
+        print()
+except BaseException:
+    print("No CUDA enabled devices found : " +
+          "[none present or in powered down state]")
 
 #####################################################################
 
